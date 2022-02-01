@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -16,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/cb_minusc"
@@ -24,10 +26,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="64dp"
         android:checked="false"
+        android:inputType="number"
         android:text="Lowcase Letters"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.312"
@@ -39,7 +41,6 @@
         android:id="@+id/cb_maiusc"
         android:layout_width="168dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:checked="false"
         android:text="Uppercase Letters"
         android:textColor="#FFFFFF"
@@ -55,7 +56,6 @@
         android:id="@+id/cb_numbers"
         android:layout_width="168dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:checked="false"
         android:text="Numbers"
         android:textColor="#FFFFFF"
@@ -71,7 +71,6 @@
         android:id="@+id/cb_special"
         android:layout_width="168dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:checked="false"
         android:text="Special Letters"
         android:textColor="#FFFFFF"
@@ -94,10 +93,10 @@
         android:progressTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.52" />
 
     <TextView
         android:id="@+id/textView"
@@ -111,13 +110,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cb_special"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.46" />
 
     <TextView
         android:id="@+id/tw_indexPassword"
         android:layout_width="64dp"
         android:layout_height="24dp"
-        android:text="10"
+        android:text=""
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textStyle="italic"
@@ -125,8 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btnGenerate"
@@ -141,34 +139,68 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
         app:layout_constraintVertical_bias="0.103" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textPassword"
-        android:layout_width="229dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGenerate">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="© 2022 Gurpinder Kumar &amp; Dennis Turco"
+        android:text="@string/_2022_gurpinder_kumar_amp_dennis_turco"
         android:textColor="#630A0A"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="177dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#E8E1E1"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGenerate"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="47dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#120F25"
+        android:foregroundTint="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.73"
+        app:srcCompat="@android:drawable/ic_menu_save" />
+
+    <ImageButton
+        android:id="@+id/btnCopy"
+        android:layout_width="47dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#120F25"
+        android:foregroundTint="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.73"
+        app:srcCompat="?attr/actionModeCopyDrawable"
+        app:tint="#FFFFFF" />
+
+    <!-- Here are the existing layout elements, now wrapped in
+         a CoordinatorLayout -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
