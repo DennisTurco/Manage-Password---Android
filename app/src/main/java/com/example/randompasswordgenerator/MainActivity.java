@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
@@ -167,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
                             textPassword.getText().clear();
                             Toast.makeText(getApplicationContext(), "Saved to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_LONG).show();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
@@ -204,13 +201,7 @@ public class MainActivity extends AppCompatActivity {
         saveDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
-
-    public void applyTexts(String name, String username, String password) {
-
-        //textViewUsername.setText(username);
-        //textViewPassword.setText(password);
-    }
-
+    @SuppressLint("SetTextI18n")
     public void Comment() {
         textPassword = findViewById(R.id.editText);
         textComment = findViewById(R.id.txtComment);
