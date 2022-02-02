@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -32,14 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView indexPassword;
     private Button buttonGenerate;
     private EditText textPassword;
+    private TextView textComment;
     private MediaPlayer generateSound;
     private ImageButton btnSave, btnCopy;
     private static final String FILE_NAME = "example.txt";
-
-    public void openDialog(View view){
-        SaveDialog saveDialog = new SaveDialog(); //oggetto della classe SaveDialog
-        saveDialog.show(getSupportFragmentManager(), "example dialog");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 textPassword.setText(password);
+                Comment(); //chiamata alla funzione Comment
 
                 //----------------------------- Button Copy ------------------------------
                 btnCopy = (ImageButton) findViewById(R.id.btnCopy);
@@ -201,13 +199,79 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    public void openDialog(View view){
+        SaveDialog saveDialog = new SaveDialog(); //oggetto della classe SaveDialog
+        saveDialog.show(getSupportFragmentManager(), "example dialog");
+    }
 
 
     public void applyTexts(String name, String username, String password) {
 
         //textViewUsername.setText(username);
         //textViewPassword.setText(password);
+    }
+
+    public void Comment() {
+        textPassword = findViewById(R.id.editText);
+        textComment = findViewById(R.id.txtComment);
+
+        String letters = "abcdefghilmnopqrstuvzxykjw";
+        String numbers = "1234567890";
+        String specialChars = ",._-*?!";
+        String password = textPassword.getText().toString();
+        int n = 0;
+
+        //lettere minuscole e maiuscole
+        for (int i=0; i<password.length(); i++){
+            for (int j=0; j<letters.length(); j++) {
+                if ( (password.charAt(i) == letters.charAt(j)) || (password.charAt(i) == letters.toUpperCase().charAt(j)) ) {
+                    n = n + 3;
+                }
+            }
+        }
+        //numeri
+        for (int i=0; i<password.length(); i++){
+            for (int j=0; j<numbers.length(); j++) {
+                if (password.charAt(i) == numbers.charAt(j)) {
+                    n = n + 8;
+                }
+            }
+        }
+        //caratteri speciali
+        for (int i=0; i<password.length(); i++){
+            for (int j=0; j<specialChars.length(); j++) {
+                if (password.charAt(i) == specialChars.charAt(j)) {
+                    n = n + 10;
+                }
+            }
+        }
+
+        textComment.setVisibility(View.VISIBLE);
+
+        if (n == 0) {
+            textComment.setTextColor(Color.RED);
+            textComment.setText("Password Too Short!");
+        }
+        if (n > 0 && n < 20) {
+            textComment.setTextColor(Color.RED);
+            textComment.setText("Password Very Weak!");
+        }
+        if (n >= 20 && n < 40) {
+            textComment.setTextColor(Color.RED);
+            textComment.setText("Password Weak!");
+        }
+        if (n >= 40 && n < 60) {
+            textComment.setTextColor(Color.YELLOW);
+            textComment.setText("Password Good!");
+        }
+        if (n >= 60 && n < 80) {
+            textComment.setTextColor(Color.YELLOW);
+            textComment.setText("Password Strong!");
+        }
+        if (n >= 80) {
+            textComment.setTextColor(Color.GREEN);
+            textComment.setText("Password Very Strong!");
+        }
     }
 }
 

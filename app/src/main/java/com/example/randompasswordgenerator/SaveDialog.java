@@ -15,14 +15,19 @@ public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextName;
     private EditText editTextUsername;
     private EditText editTextPassword;
+    private EditText textPassword;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
+        
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
+        editTextPassword = view.findViewById(R.id.editPassword);
+        textPassword = view.findViewById(R.id.editText);
+        //editTextPassword.setText(textPassword.getText());
+        
         builder.setView(view)
                 .setTitle("Save Password")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -39,5 +44,7 @@ public class SaveDialog extends AppCompatDialogFragment {
                 });
 
         return builder.create();
+
+
     }
 }

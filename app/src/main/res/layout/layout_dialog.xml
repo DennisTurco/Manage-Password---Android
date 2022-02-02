@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <EditText
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="Name"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <EditText
         android:id="@+id/editUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Email"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <EditText
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password" />
+        android:hint="Password"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </LinearLayout>
