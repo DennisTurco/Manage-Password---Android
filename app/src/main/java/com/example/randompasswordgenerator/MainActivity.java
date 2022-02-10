@@ -22,12 +22,9 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -183,38 +180,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //save
                         openDialog(v, textPassword.getText().toString());  //chiamata alla funzione
-
-
                     }
+
                 });
 
+                //messaggio per il feedback
+                ClipData clip = ClipData.newPlainText("simple text", textPassword.getText());
+                Snackbar snackbar = Snackbar.make(v, "password saved!", Snackbar.LENGTH_LONG)
+                        .setAction("Dimiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                            }
+                        });
+                snackbar.show();
 
             }
         });
 
-    }
-
-    private void saveTextAsFile(String filename, String content){
-
-        /*String fileName = filename + ".txt";
-
-        //create File
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
-
-        //write to file
-        try {
-            FileOutputStream fos = null;
-            fos = new FileOutputStream(file);
-            fos.write(content.getBytes());
-            fos.close();
-            Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "File not Found!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error Saving!", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     @Override

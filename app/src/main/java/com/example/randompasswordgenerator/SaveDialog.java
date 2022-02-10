@@ -9,26 +9,19 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDialogFragment;
-
 import com.google.android.material.snackbar.Snackbar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 
 
 public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextName;
     private EditText editTextUsername;
     private EditText editTextPassword;
-    private EditText textPassword;
     private String Password;
 
 
@@ -45,8 +38,10 @@ public class SaveDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
-        textPassword = view.findViewById(R.id.editPassword);
-        textPassword.setText(Password);
+        editTextName = view.findViewById(R.id.editName);
+        editTextUsername = view.findViewById(R.id.editUsername);
+        editTextPassword = view.findViewById(R.id.editPassword);
+        editTextPassword.setText(Password);
 
         builder.setView(view)
                 .setTitle("Save Password")
@@ -62,49 +57,32 @@ public class SaveDialog extends AppCompatDialogFragment {
 
                         //TODO: Salvattaggio informazioni passandole nel file system
 
+                        //create folder
+                        File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
+                        if (!folder.exists()) folder.mkdir();
+
                         //create File
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "prova.txt");
+                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "./RandomPasswordGenerator/DataList.txt");
 
                         //write to file
-                        /*try {
+                        Gson gson = new Gson();
+                        DataList data = new DataList(editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                        String json = gson.toJson(data);
+                        //json = "{\"Username\":\"Dennis\",\"Password\":\"prova\"}";
+
+                        try {
                             FileOutputStream fos = null;
                             fos = new FileOutputStream(file);
-                            fos.write(editTextName.getText().toString().getBytes()); //nome
-                            fos.write(editTextUsername.getText().toString().getBytes()); //email
-                            fos.write(editTextPassword.getText().toString().getBytes()); //password
+                            fos.write(json.getBytes()); //nome
+                            Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_SHORT).show();
                             fos.close();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
                         } catch (IOException e) {
-                            e.printStackTrace();
-                        }*/
-                        JSONObject jasonObj = new JSONObject();
-                        try {
-                            jasonObj.put("Name", editTextName.getText().toString());
-                            jasonObj.put("Email", editTextUsername.getText().toString());
-                            jasonObj.put("Password", editTextPassword.getText().toString());
-                            StringWriter out = new StringWriter();
-
-                            String jsonText = out.toString();
-                            
-                            try {
-                                FileOutputStream fos = null;
-                                fos = new FileOutputStream(file);
-                                fos.write(jsonText.getBytes());
-                                fos.close();
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                                
-                            System.out.print(jsonText);
-                        } catch (JSONException e) {
+                            Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
 
-                        //messaggio per il feedback
-                        ClipData clip = ClipData.newPlainText("simple text", textPassword.getText());
+                        //TODO: messaggio per il feedback
+                        ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
                         Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
                                 .setAction("Dimiss", new View.OnClickListener() {
                                     @Override
@@ -114,6 +92,7 @@ public class SaveDialog extends AppCompatDialogFragment {
                         snackbar.show();
 
                     }
+
                 });
 
         return builder.create();
