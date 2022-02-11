@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //casi d'errore
                 if ((!cb_minusc.isChecked() && !cb_maiusc.isChecked() && !cb_numbers.isChecked() && !cb_special.isChecked()) || seekbar.getProgress()/6 == 0 ){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //TODO: eliminare la possibilità di inserire spazi vuoti
@@ -149,11 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+
+                //----------------------------- Text Comment ------------------------------
                 btnCopy = (ImageButton) findViewById(R.id.btnCopy);
                 btnCopy.setVisibility(View.VISIBLE);
                 btnSave = (ImageButton) findViewById(R.id.btnSave);
                 btnSave.setVisibility(View.VISIBLE);
-
 
                 textPassword.setText(password);
                 textPassword.addTextChangedListener(new TextWatcher() {
@@ -161,18 +161,14 @@ public class MainActivity extends AppCompatActivity {
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        //TODO: FIXHERE -> se la stringa della password è vuota allora i bottoni save e copy devono scomparire
-
                         String result = Comment(); //chiamata alla funzione Comment
 
                         if(result.equals("Password Too Short!")){
-                            Toast.makeText(getApplicationContext(), "Invisible!", Toast.LENGTH_SHORT).show();  //solo per controllare se entra
                             btnSave.setVisibility(View.INVISIBLE);
                             btnCopy.setVisibility(View.INVISIBLE);
                         } else {
-                            Toast.makeText(getApplicationContext(), "Visible!", Toast.LENGTH_SHORT).show();  //solo per controllare se entra
                             btnCopy.setVisibility(View.VISIBLE);
-                            btnSave.setVisibility(View.INVISIBLE);
+                            btnSave.setVisibility(View.VISIBLE);
                         }
 
                     }

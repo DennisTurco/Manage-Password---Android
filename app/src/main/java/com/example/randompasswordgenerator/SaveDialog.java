@@ -24,7 +24,6 @@ public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextPassword;
     private String Password;
 
-
     public SaveDialog(){}
 
     public SaveDialog(String text){
@@ -55,6 +54,12 @@ public class SaveDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
+                        //casi d'errore
+                        if(editTextName.getText().length() == 0 || editTextUsername.getText().length() == 0 || editTextPassword.getText().length() == 0){
+                            Toast.makeText(view.getContext(), "Argument Missing!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         //TODO: FIXHERE -> Salvattaggio informazioni passandole nel file system
 
                         //create folder
@@ -73,14 +78,13 @@ public class SaveDialog extends AppCompatDialogFragment {
                             FileOutputStream fos = null;
                             fos = new FileOutputStream(file);
                             fos.write(json.getBytes()); //nome
-                            Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
                             fos.close();
                         } catch (IOException e) {
                             Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
 
                         //TODO: FIXHERE -> messaggio per il feedback
                         ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
