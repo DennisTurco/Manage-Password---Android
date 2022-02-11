@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RandomPasswordGenerator">
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,15 @@
         <activity
             android:name=".Activity_PasswordList"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Register"
+            android:screenOrientation="portrait" />
+
 
     </application>
 

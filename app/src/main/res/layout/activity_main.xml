@@ -162,7 +162,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="© 2022 Gurpinder Kumar &amp; Dennis Turco &amp; Pardeep Kumar" />
 
     <EditText
         android:id="@+id/editText"

@@ -24,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView textComment;
     private MediaPlayer generateSound;
     private ImageButton btnSave, btnCopy;
-    private static final String FILE_NAME = "example.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         generateSound = MediaPlayer.create(MainActivity.this, R.raw.spin);  // per il suono del dado
+
+
+        //TODO: eliminare l'intestazione default
 
         //----------------------------- Seek Bar ------------------------------
         seekbar = findViewById(R.id.seekBar);
@@ -73,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
         buttonPasswordList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity_passwordList();  //chiamata alla funzione
+                //openActivity_passwordList();  //chiamata alla funzione
+                InterfaceImplementation inter = new InterfaceImplementation();
+                inter.redirectActivity(MainActivity.this,Activity_PasswordList.class); //chiamata alla funzione per cambio pagina
             }
         });
 
@@ -183,17 +189,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-
-                //messaggio per il feedback
-                ClipData clip = ClipData.newPlainText("simple text", textPassword.getText());
-                Snackbar snackbar = Snackbar.make(v, "password saved!", Snackbar.LENGTH_LONG)
-                        .setAction("Dimiss", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                            }
-                        });
-                snackbar.show();
-
             }
         });
 

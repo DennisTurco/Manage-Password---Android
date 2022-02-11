@@ -1,46 +1,46 @@
 package com.example.randompasswordgenerator;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Login extends AppCompatActivity{
+public class Register extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private Button btnLogin;
-    private TextView txtRegister;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.login);
+        setContentView(R.layout.register);
 
-        InterfaceImplementation inter = new InterfaceImplementation();
-
-        //----------------------------- Button Login ------------------------------
         username = findViewById(R.id.textUsername);
         password = findViewById(R.id.textPassword);
-        btnLogin = findViewById(R.id.btnRegister);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+
+        //----------------------------- Button Register ------------------------------
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataLogin.txt");
 
                 //Read text from file
@@ -59,28 +59,22 @@ public class Login extends AppCompatActivity{
                 catch (IOException e) {
                     //You'll need to add proper error handling here
                 }
-
-                DataLogin login = new Gson().fromJson(text.toString(), DataLogin.class);
-                if(username.getText().toString().equals(login.getUsername()) && password.getText().toString().equals(login.getPassword())){
+                Type listType = (Type) new TypeToken<ArrayList<DataLogin>>(){}.getType();
+                List<DataLogin> register = new Gson().fromJson(text.toString(), DataLogin.class);
+                /*if(username.getText().toString().equals(register.getUsername()) && password.getText().toString().equals(register.getPassword())){
                     Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
-                    inter.redirectActivity(Login.this, MainActivity.class); //chiamata funzione cambio pagina
+
+                    InterfaceImplementation inter = new InterfaceImplementation();
+                    inter.redirectActivity(Register.this, Login.class); //chiamata alla funzione campio pagina
                 } else {
                     Toast.makeText(getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+
 
 
             }
         });
 
-        //----------------------------- Text Register ------------------------------
-        txtRegister = findViewById(R.id.txtRegister);
-        txtRegister.setPaintFlags(txtRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG); //per mettere sottolineatura sulla scritta
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inter.redirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
-            }
-        });
     }
 
 

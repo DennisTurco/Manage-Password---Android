@@ -1,9 +1,9 @@
 package com.example.randompasswordgenerator;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity_PasswordList extends AppCompatActivity {
@@ -22,15 +22,17 @@ public class Activity_PasswordList extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity_Main();  //chiamata alla funzione
+                //openActivity_Main();  //chiamata alla funzione
+                InterfaceImplementation inter = new InterfaceImplementation();
+                inter.redirectActivity(Activity_PasswordList.this, MainActivity.class); //chiamata alla funzione per cambio pagina
             }
         });
 
     }
 
-    public void openActivity_Main(){
+    /*public void openActivity_Main(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
+    }*/
 
 }
