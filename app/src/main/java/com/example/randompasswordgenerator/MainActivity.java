@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -22,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         generateSound = MediaPlayer.create(MainActivity.this, R.raw.spin);  // per il suono del dado
 
 
-        //TODO: eliminare l'intestazione default
+        //TODO: creare top bar personalizzata
 
         //----------------------------- Seek Bar ------------------------------
         seekbar = findViewById(R.id.seekBar);
@@ -108,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                     return;
                 }
+                //TODO: eliminare la possibilità di inserire spazi vuoti
+                //TODO: maggiore controllo sui tipi di caratteri immessi
 
                 textPassword = findViewById(R.id.editText);
-                textPassword.setVisibility(1);
+                textPassword.setVisibility(View.VISIBLE);
 
                 //riproduzione souno
                 generateSound.start();
@@ -147,19 +149,37 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                btnCopy = (ImageButton) findViewById(R.id.btnCopy);
+                btnCopy.setVisibility(View.VISIBLE);
+                btnSave = (ImageButton) findViewById(R.id.btnSave);
+                btnSave.setVisibility(View.VISIBLE);
+
+
                 textPassword.setText(password);
                 textPassword.addTextChangedListener(new TextWatcher() {
                     public void afterTextChanged(Editable s) {} //inutile
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        Comment(); //chiamata alla funzione Comment
+
+                        //TODO: FIXHERE -> se la stringa della password è vuota allora i bottoni save e copy devono scomparire
+
+                        String result = Comment(); //chiamata alla funzione Comment
+
+                        if(result.equals("Password Too Short!")){
+                            Toast.makeText(getApplicationContext(), "Invisible!", Toast.LENGTH_SHORT).show();  //solo per controllare se entra
+                            btnSave.setVisibility(View.INVISIBLE);
+                            btnCopy.setVisibility(View.INVISIBLE);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Visible!", Toast.LENGTH_SHORT).show();  //solo per controllare se entra
+                            btnCopy.setVisibility(View.VISIBLE);
+                            btnSave.setVisibility(View.INVISIBLE);
+                        }
+
                     }
                 });
 
 
                 //----------------------------- Button Copy ------------------------------
-                btnCopy = (ImageButton) findViewById(R.id.btnCopy);
-                btnCopy.setVisibility(1);
                 btnCopy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -179,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
                 }
 
-                btnSave = (ImageButton) findViewById(R.id.btnSave);
-                btnSave.setVisibility(1);
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -213,13 +231,8 @@ public class MainActivity extends AppCompatActivity {
         saveDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
-    public void openActivity_passwordList(){
-        Intent intent = new Intent(this, Activity_PasswordList.class);
-        startActivity(intent);
-    }
-
     @SuppressLint("SetTextI18n")
-    public void Comment() {
+    public String Comment() {
         textPassword = findViewById(R.id.editText);
         textComment = findViewById(R.id.txtComment);
 
@@ -280,6 +293,9 @@ public class MainActivity extends AppCompatActivity {
             textComment.setTextColor(Color.GREEN);
             textComment.setText("Password Very Strong!");
         }
+
+        String text = textComment.getText().toString();
+        return text;
     }
 }
 

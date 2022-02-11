@@ -9,16 +9,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Register extends AppCompatActivity {
 
@@ -59,8 +53,11 @@ public class Register extends AppCompatActivity {
                 catch (IOException e) {
                     //You'll need to add proper error handling here
                 }
-                Type listType = (Type) new TypeToken<ArrayList<DataLogin>>(){}.getType();
-                List<DataLogin> register = new Gson().fromJson(text.toString(), DataLogin.class);
+
+                //TODO: FIXHERE -> controllare che l'utente che si vuole registrare non esisti già
+
+                //Type listType = (Type) new TypeToken<ArrayList<DataLogin>>(){}.getType();
+                //List<DataLogin> register = new Gson().fromJson(text.toString(), DataLogin.class);
                 /*if(username.getText().toString().equals(register.getUsername()) && password.getText().toString().equals(register.getPassword())){
                     Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
 
@@ -69,6 +66,8 @@ public class Register extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
                 }*/
+
+                //TODO: aggiungere il nuovo utente in caso non esisti già
 
 
 

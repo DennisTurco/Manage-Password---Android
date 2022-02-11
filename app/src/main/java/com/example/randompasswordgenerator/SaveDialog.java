@@ -55,7 +55,7 @@ public class SaveDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
-                        //TODO: Salvattaggio informazioni passandole nel file system
+                        //TODO: FIXHERE -> Salvattaggio informazioni passandole nel file system
 
                         //create folder
                         File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
@@ -68,7 +68,6 @@ public class SaveDialog extends AppCompatDialogFragment {
                         Gson gson = new Gson();
                         DataList data = new DataList(editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
                         String json = gson.toJson(data);
-                        //json = "{\"Username\":\"Dennis\",\"Password\":\"prova\"}";
 
                         try {
                             FileOutputStream fos = null;
@@ -81,7 +80,9 @@ public class SaveDialog extends AppCompatDialogFragment {
                             e.printStackTrace();
                         }
 
-                        //TODO: messaggio per il feedback
+                        Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
+
+                        //TODO: FIXHERE -> messaggio per il feedback
                         ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
                         Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
                                 .setAction("Dimiss", new View.OnClickListener() {
