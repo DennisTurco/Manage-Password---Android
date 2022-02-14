@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -40,13 +42,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView textComment;
     private MediaPlayer generateSound;
     private ImageButton btnSave, btnCopy;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        generateSound = MediaPlayer.create(MainActivity.this, R.raw.spin);  // per il suono del dado
+        generateSound = MediaPlayer.create(MainActivity.this, R.raw.spin);  // per il suono dello "spin"
+
+        toolbar =  findViewById(R.id.topBar);
+        setSupportActionBar(toolbar);
 
 
         //TODO: creare top bar personalizzata
@@ -222,6 +228,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //funzione per gli options menu sul ToolBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.id_logout:
+                Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_exit:
+                Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void openDialog(View view, String text){
         SaveDialog saveDialog = new SaveDialog(text); //oggetto della classe SaveDialog
         saveDialog.show(getSupportFragmentManager(), "example dialog");
@@ -293,5 +319,6 @@ public class MainActivity extends AppCompatActivity {
         String text = textComment.getText().toString();
         return text;
     }
+
 }
 

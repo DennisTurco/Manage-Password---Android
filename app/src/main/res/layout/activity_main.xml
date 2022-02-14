@@ -229,6 +229,10 @@
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="0.108" />
 
+    <include
+        android:id="@+id/top"
+        layout="@layout/top_bar" />
+
     <!-- Here are the existing layout elements, now wrapped in
          a CoordinatorLayout -->
 

@@ -30,9 +30,4 @@ public class Activity_PasswordList extends AppCompatActivity {
 
     }
 
-    /*public void openActivity_Main(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }*/
-
 }

@@ -38,8 +38,10 @@ public class Register extends AppCompatActivity {
         textPassword = findViewById(R.id.textPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
-        //----------------------------- Button Show ------------------------------
+        //----------------------------- TextInput1 ------------------------------
 
+
+        //----------------------------- TextInput2 ------------------------------
 
 
         //----------------------------- Text Comment ------------------------------
