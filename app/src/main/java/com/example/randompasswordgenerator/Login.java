@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Login extends AppCompatActivity{
 
@@ -25,6 +26,7 @@ public class Login extends AppCompatActivity{
     private EditText password;
     private Button btnLogin;
     private TextView txtRegister;
+    private ArrayList<DataLogin> register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,18 @@ public class Login extends AppCompatActivity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                //TODO: controllo errori immissione campi
+                //controllo errori input
+                if (password.length() == 0 || username.length() == 0){
+                    Toast.makeText(getApplicationContext(), "Error! Input missing!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+
                 File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataLogin.txt");
 
                 //Read text from file
@@ -60,14 +74,36 @@ public class Login extends AppCompatActivity{
                     //You'll need to add proper error handling here
                 }
 
-                DataLogin login = new Gson().fromJson(text.toString(), DataLogin.class);
-                if(username.getText().toString().equals(login.getUsername()) && password.getText().toString().equals(login.getPassword())){
-                    Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
-                    inter.redirectActivity(Login.this, MainActivity.class); //chiamata funzione cambio pagina
-                } else {
-                    Toast.makeText(getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
+
+                //CONTROLLO SULL'ESISTENZA DELL'UTENTE
+                register = new ArrayList<>();
+                register = new Gson().fromJson(text.toString(), ArrayList.class);
+                DataLogin data = new DataLogin(username.getText().toString(), password.getText().toString());
+                String stringaUsername = "";
+                String stringaPassword = "";
+
+                for(int i=0; i<register.size(); i++){
+                    //{Password=sad , Username=asd} formattazione iniziale
+                    stringaUsername = "" + register.get(i);
+                    stringaUsername = stringaUsername.split(",")[1];  //metto alla fine [1] perchè voglio ottenere la seconda parte
+                    stringaUsername = stringaUsername.split("=")[1];
+
+                    stringaPassword = "" + register.get(i);
+                    stringaPassword = stringaPassword.split(",")[0];  //metto alla fine [0] perchè voglio ottenere la prima parte
+                    stringaPassword = stringaPassword.split("=")[1];
+
+
+                    if(stringaUsername.substring(0, stringaUsername.length()-1).equals(data.getUsername())  &&  stringaPassword.equals(data.getPassword())) {
+                        Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
+                        inter.redirectActivity(Login.this, MainActivity.class); //chiamata funzione cambio pagina
+                        return;
+                    }
+
                 }
 
+                //caso in cui non lo user non è presente
+                Toast.makeText(getApplicationContext(), "Error! User don't exists or password is wrong", Toast.LENGTH_SHORT).show();
+                return;
 
             }
         });

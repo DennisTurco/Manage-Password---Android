@@ -12,13 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Register extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class Register extends AppCompatActivity {
     private Button btnRegister;
     private ImageButton btnShow;
     private TextView textComment;
+    private ArrayList<DataLogin> register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,25 +98,31 @@ public class Register extends AppCompatActivity {
                 //TODO: FIXHERE -> controllare che l'utente che si vuole registrare non esisti già
                 //CONTROLLO SULL'ESISTENZA DELL'UTENTE
 
-                //Type listType = (Type) new TypeToken<ArrayList<DataLogin>>(){}.getType();
-                //List<DataLogin> register = new Gson().fromJson(text.toString(), DataLogin.class);
-                /*if(username.getText().toString().equals(register.getUsername()) && password.getText().toString().equals(register.getPassword())){
-                    Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
+                register = new ArrayList<>();
+                register = new Gson().fromJson(text.toString(), ArrayList.class);
+                DataLogin data = new DataLogin(textUsername.getText().toString(), textPassword.getText().toString());
 
-                    InterfaceImplementation inter = new InterfaceImplementation();
-                    inter.redirectActivity(Register.this, Login.class); //chiamata alla funzione campio pagina
-                } else {
-                    Toast.makeText(getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
-                }*/
+                for(int i=0; i<register.size(); i++){
+                    String stringa = "" + register.get(i);
 
+                    //{Password=sad , Username=asd} formattazione iniziale
+                    stringa = stringa.split(",")[1];  //metto alla fine [1] perchè voglio ottenere la seconda parte
+                    stringa = stringa.split("=")[1];
+
+                    if(stringa.substring(0, stringa.length()-1).equals(data.getUsername())){
+                        Toast.makeText(getApplicationContext(), "Error! Username already used!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                register.add(data);
 
 
                 //AGGIUNTA DELL'UTENTE AL FILE TXT
 
                 //write to file
                 Gson gson = new Gson();
-                DataLogin data = new DataLogin(textUsername.getText().toString(), textPassword.getText().toString());
-                String json = gson.toJson(data);
+
+                String json = gson.toJson(register);
 
                 try {
                     FileOutputStream fos = null;

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">RandomPasswordGenerator</string>
-    <string name="_2022_gurpinder_kumar_amp_dennis_turco"><![CDATA[© 2022 Gurpinder Kumar & Dennis Turco]]></string>
-    <string name="user">User</string>
+    <string name="creatori"><![CDATA[© 2022 Gurpinder Kumar & Dennis Turco & Pardeep Kumar]]></string>
+    <string name="user">User</string>/>
 </resources>

@@ -50,10 +50,10 @@
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/boxUsername"
@@ -147,14 +147,13 @@
         android:id="@+id/txtComment2"
         android:layout_width="173dp"
         android:layout_height="21dp"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="italic"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boxPassword"
         app:layout_constraintVertical_bias="0.0" />
