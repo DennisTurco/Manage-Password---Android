@@ -13,9 +13,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 public class SaveDialog extends AppCompatDialogFragment {
@@ -62,18 +68,48 @@ public class SaveDialog extends AppCompatDialogFragment {
 
                         //TODO: FIXHERE -> Salvattaggio informazioni passandole nel file system
 
-                        //create folder
-                        File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
-                        if (!folder.exists()) folder.mkdir();
-
                         //create File
                         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "./RandomPasswordGenerator/DataList.txt");
+                        if (!file.exists()) {
+                            try {
+                                file.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
-                        //write to file
+                        //Read text from file
+                        StringBuilder text = new StringBuilder();
+
+                        try {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            String line;
+
+                            while ((line = br.readLine()) != null) {
+                                text.append(line);
+                                text.append('\n');
+                            }
+                            br.close();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
                         Gson gson = new Gson();
-                        DataList data = new DataList(editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                        DataList data = new DataList("", editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
                         String json = gson.toJson(data);
 
+                        if(!text.toString().isEmpty() && text != null){
+
+                            Type type = new TypeToken<ArrayList<DataLogin>>() {}.getType();
+                            data = gson.fromJson(text.toString(), type);
+
+                        }
+
+                        //TODO................................................................
+
+                        //write to file
                         try {
                             FileOutputStream fos = null;
                             fos = new FileOutputStream(file);

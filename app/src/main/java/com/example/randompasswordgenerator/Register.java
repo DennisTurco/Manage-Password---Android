@@ -16,12 +16,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Register extends AppCompatActivity {
@@ -75,8 +77,18 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-
+                //create File
                 File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataLogin.txt");
+                if (!file.exists()) {
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Gson gson = new Gson();
+
 
                 //Read text from file
                 StringBuilder text = new StringBuilder();
@@ -92,35 +104,29 @@ public class Register extends AppCompatActivity {
                     br.close();
                 }
                 catch (IOException e) {
-                    //You'll need to add proper error handling here
+                    e.printStackTrace();
                 }
 
-                //TODO: FIXHERE -> controllare che l'utente che si vuole registrare non esisti già
                 //CONTROLLO SULL'ESISTENZA DELL'UTENTE
-
                 register = new ArrayList<>();
-                register = new Gson().fromJson(text.toString(), ArrayList.class);
                 DataLogin data = new DataLogin(textUsername.getText().toString(), textPassword.getText().toString());
+                if(!text.toString().isEmpty() && text != null){
 
-                for(int i=0; i<register.size(); i++){
-                    String stringa = "" + register.get(i);
-
-                    //{Password=sad , Username=asd} formattazione iniziale
-                    stringa = stringa.split(",")[1];  //metto alla fine [1] perchè voglio ottenere la seconda parte
-                    stringa = stringa.split("=")[1];
-
-                    if(stringa.substring(0, stringa.length()-1).equals(data.getUsername())){
-                        Toast.makeText(getApplicationContext(), "Error! Username already used!", Toast.LENGTH_LONG).show();
-                        return;
+                    Type type = new TypeToken<ArrayList<DataLogin>>() {}.getType();
+                    register = gson.fromJson(text.toString(), type);
+                    for (int i=0; i<register.size(); i++){
+                        if(register.get(i).getUsername().equals(data.getUsername())){
+                            Toast.makeText(getApplicationContext(), "Error! Username already used!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
                     }
                 }
+
                 register.add(data);
 
 
-                //AGGIUNTA DELL'UTENTE AL FILE TXT
 
-                //write to file
-                Gson gson = new Gson();
+                //AGGIUNTA DELL'UTENTE AL FILE TXT
 
                 String json = gson.toJson(register);
 
