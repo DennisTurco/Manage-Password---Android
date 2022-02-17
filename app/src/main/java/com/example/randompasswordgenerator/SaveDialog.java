@@ -29,11 +29,14 @@ public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private String Password;
+    private String User;
+    private ArrayList<DataList> dataList;
 
     public SaveDialog(){}
 
-    public SaveDialog(String text){
+    public SaveDialog(String text, String text2){
         Password = text;
+        User = text2;
     }
 
     @Override
@@ -97,17 +100,26 @@ public class SaveDialog extends AppCompatDialogFragment {
 
 
                         Gson gson = new Gson();
-                        DataList data = new DataList("", editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
-                        String json = gson.toJson(data);
+                        DataList data = new DataList(User, editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                        dataList = new ArrayList<>();
 
                         if(!text.toString().isEmpty() && text != null){
+                            Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
+                            dataList = gson.fromJson(text.toString(), type);
 
-                            Type type = new TypeToken<ArrayList<DataLogin>>() {}.getType();
-                            data = gson.fromJson(text.toString(), type);
+                            for (DataList d: dataList) {
+                                if(d.getPassword().equals(data.getPassword()) && d.getName().equals(data.getName()) && d.getEmail().equals(data.getEmail())){
+                                    Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
 
                         }
 
-                        //TODO................................................................
+                        dataList.add(data);
+
+                        String json = gson.toJson(dataList);
+
 
                         //write to file
                         try {

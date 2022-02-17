@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer generateSound;
     private ImageButton btnSave, btnCopy;
     private androidx.appcompat.widget.Toolbar toolbar;
+    private String User = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar =  findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
+
+        //Ottengo il dato dal Login
+        Bundle message = getIntent().getExtras();
+        if(message != null){
+            User = message.getString("User");
+        }
 
 
         //TODO: creare top bar personalizzata
@@ -83,9 +91,13 @@ public class MainActivity extends AppCompatActivity {
         buttonPasswordList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //openActivity_passwordList();  //chiamata alla funzione
-                InterfaceImplementation inter = new InterfaceImplementation();
-                inter.redirectActivity(MainActivity.this,Activity_PasswordList.class); //chiamata alla funzione per cambio pagina
+                /*InterfaceImplementation inter = new InterfaceImplementation();
+                inter.redirectActivity(MainActivity.this,Activity_PasswordList.class); //chiamata alla funzione per cambio pagina*/
+
+                //TODO: aggiungere metodo alla interface e richiamarlo
+                Intent in = new Intent(view.getContext(), MainActivity.class);
+                in.putExtra("User", User);
+                startActivity(in); //chiamata funzione cambio pagina
             }
         });
 
@@ -156,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //----------------------------- Text Comment ------------------------------
+                Comment();
                 btnCopy = (ImageButton) findViewById(R.id.btnCopy);
                 btnCopy.setVisibility(View.VISIBLE);
                 btnSave = (ImageButton) findViewById(R.id.btnSave);
@@ -205,7 +218,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //save
-                        openDialog(v, textPassword.getText().toString());  //chiamata alla funzione
+                        openDialog(v, textPassword.getText().toString(), User);  //chiamata alla funzione
+
+                        btnSave.setVisibility(View.INVISIBLE);
+                        btnCopy.setVisibility(View.INVISIBLE);
+                        textPassword.setText("");
+                        textPassword.setVisibility(View.INVISIBLE);
+                        textComment.setVisibility(View.INVISIBLE);
+                        cb_numbers.setChecked(false);
+                        cb_maiusc.setChecked(false);
+                        cb_special.setChecked(false);
+                        cb_minusc.setChecked(false);
                     }
 
                 });
@@ -248,8 +271,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openDialog(View view, String text){
-        SaveDialog saveDialog = new SaveDialog(text); //oggetto della classe SaveDialog
+    public void openDialog(View view, String text, String text2){
+        SaveDialog saveDialog = new SaveDialog(text, text2); //oggetto della classe SaveDialog
         saveDialog.show(getSupportFragmentManager(), "example dialog");
     }
 

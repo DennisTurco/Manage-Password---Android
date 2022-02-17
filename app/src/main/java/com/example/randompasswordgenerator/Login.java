@@ -1,5 +1,6 @@
 package com.example.randompasswordgenerator;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
@@ -95,9 +96,14 @@ public class Login extends AppCompatActivity{
                 DataLogin data = new DataLogin(username.getText().toString(), password.getText().toString());
 
                 for(int i=0; i<register.size(); i++){
-                    if(register.get(i).toString().equals(data.getUsername())  &&  register.get(i).toString().equals(data.getPassword())) {
+                    if(register.get(i).getUsername().equals(data.getUsername())  &&  register.get(i).getPassword().equals(data.getPassword())) {
                         Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
-                        inter.redirectActivity(Login.this, MainActivity.class); //chiamata funzione cambio pagina
+
+                        //TODO: aggiungere metodo alla interface e richiamarlo
+                        Intent in = new Intent(v.getContext(), MainActivity.class);
+                        in.putExtra("User", register.get(i).getUsername());
+                        startActivity(in); //chiamata funzione cambio pagina
+
                         return;
                     }
 

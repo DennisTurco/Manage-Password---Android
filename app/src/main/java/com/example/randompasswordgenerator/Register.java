@@ -45,11 +45,6 @@ public class Register extends AppCompatActivity {
         textPassword = findViewById(R.id.textPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
-        //----------------------------- TextInput1 ------------------------------
-
-
-        //----------------------------- TextInput2 ------------------------------
-
 
         //----------------------------- Text Comment ------------------------------
         textPassword.addTextChangedListener(new TextWatcher() {
