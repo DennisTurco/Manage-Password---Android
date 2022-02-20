@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //TODO: creare top bar personalizzata
+        //TODO: FIXHERE -> top bar personalizzata
 
         //----------------------------- Seek Bar ------------------------------
         seekbar = findViewById(R.id.seekBar);
