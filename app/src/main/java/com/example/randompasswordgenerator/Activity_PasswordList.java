@@ -8,9 +8,12 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -65,7 +68,6 @@ public class Activity_PasswordList extends AppCompatActivity{
 
 
         Gson gson = new Gson();
-        //DataList data = new DataList(User, editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
         dataList = new ArrayList<>();
 
         Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
@@ -103,9 +105,9 @@ public class Activity_PasswordList extends AppCompatActivity{
     }
 
     //è definita come static perchè in questo modo è riferibile da altre classi, in particolare dalla classe ListViewAdapter
-    public static void removeItem(int remove){  //funzione per la rimozione di un elemento dalla lista
-        makeToast("Removed: " + info.get(remove));
-        info.remove(remove);
+    public static void removeItem(int i){  //funzione per la rimozione di un elemento dalla lista
+        makeToast("Removed: " + info.get(i));
+        info.remove(i);
         listView.setAdapter(dataListAdapter);
     }
 

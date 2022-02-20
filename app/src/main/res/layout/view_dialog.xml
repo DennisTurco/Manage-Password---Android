@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,30 +8,123 @@
     android:padding="20dp">
 
     <TextView
+        android:id="@+id/editTextPassword"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toEndOf="@+id/txtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:id="@+id/editTextEmail"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <TextView
+        android:id="@+id/editTextName"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toEndOf="@+id/txtName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
         android:id="@+id/txtName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="Name: "
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Name: "
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
 
     <TextView
         android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="Email: "
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Email: "
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName"
+        app:layout_constraintVertical_bias="0.028" />
 
     <TextView
         android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="Password: "
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Password: "
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+        app:layout_constraintVertical_bias="0.022" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/btnCopyEmail"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/btnCopyPassword"
+        app:layout_constraintVertical_bias="0.02"
+        app:srcCompat="?attr/actionModeCopyDrawable"
+        app:tint="#000000" />
+
+    <ImageView
+        android:id="@+id/btnCopyPassword"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        app:layout_constraintVertical_bias="0.05"
+        app:srcCompat="?attr/actionModeCopyDrawable"
+        app:tint="#000000" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
