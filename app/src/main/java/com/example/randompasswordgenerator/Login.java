@@ -10,12 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -38,8 +35,6 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.login);
 
         InterfaceImplementation inter = new InterfaceImplementation();
-
-
 
         //----------------------------- Button Login ------------------------------
         username = findViewById(R.id.textUsername);
@@ -99,7 +94,6 @@ public class Login extends AppCompatActivity{
                         Intent in = new Intent(v.getContext(), MainActivity.class);
                         in.putExtra("User", register.get(i).getUsername());
                         startActivity(in); //chiamata funzione cambio pagina
-
                         return;
                     }
 

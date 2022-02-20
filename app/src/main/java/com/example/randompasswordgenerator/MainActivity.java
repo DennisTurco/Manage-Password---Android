@@ -24,12 +24,9 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnSave, btnCopy;
     private androidx.appcompat.widget.Toolbar toolbar;
     private String User = "";
+
+    //TODO: criptare i file salvati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

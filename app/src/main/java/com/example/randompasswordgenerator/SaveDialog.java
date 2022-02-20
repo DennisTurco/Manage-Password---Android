@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,7 +21,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
 
 public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextName;
@@ -68,8 +66,6 @@ public class SaveDialog extends AppCompatDialogFragment {
                             Toast.makeText(view.getContext(), "Argument Missing!", Toast.LENGTH_SHORT).show();
                             return;
                         }
-
-                        //TODO: FIXHERE -> Salvattaggio informazioni passandole nel file system
 
                         //create File
                         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "./RandomPasswordGenerator/DataList.txt");
