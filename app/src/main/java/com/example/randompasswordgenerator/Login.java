@@ -40,10 +40,6 @@ public class Login extends AppCompatActivity{
         InterfaceImplementation inter = new InterfaceImplementation();
 
 
-        //create folder
-        File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
-        if (!folder.exists()) folder.mkdir();
-
 
         //----------------------------- Button Login ------------------------------
         username = findViewById(R.id.textUsername);

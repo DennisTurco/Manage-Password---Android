@@ -72,6 +72,10 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                //create folder
+                File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
+                if (!folder.exists()) folder.mkdir();
+
                 //create File
                 File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataLogin.txt");
                 if (!file.exists()) {

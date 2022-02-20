@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 inter.redirectActivity(MainActivity.this,Activity_PasswordList.class); //chiamata alla funzione per cambio pagina*/
 
                 //TODO: aggiungere metodo alla interface e richiamarlo
-                Intent in = new Intent(view.getContext(), MainActivity.class);
+                Intent in = new Intent(view.getContext(), Activity_PasswordList.class);
                 in.putExtra("User", User);
                 startActivity(in); //chiamata funzione cambio pagina
             }
@@ -168,19 +168,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //----------------------------- Text Comment ------------------------------
-                Comment();
+                Comment(password);
                 btnCopy = (ImageButton) findViewById(R.id.btnCopy);
                 btnCopy.setVisibility(View.VISIBLE);
                 btnSave = (ImageButton) findViewById(R.id.btnSave);
                 btnSave.setVisibility(View.VISIBLE);
-
                 textPassword.setText(password);
+
+
                 textPassword.addTextChangedListener(new TextWatcher() {
                     public void afterTextChanged(Editable s) {} //inutile
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        String result = Comment(); //chiamata alla funzione Comment
+                        String result = Comment(textPassword.getText().toString()); //chiamata alla funzione Comment
 
                         if(result.equals("Password Too Short!")){
                             btnSave.setVisibility(View.INVISIBLE);
@@ -277,14 +278,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    public String Comment() {
+    public String Comment(String password) {
         textPassword = findViewById(R.id.editText);
         textComment = findViewById(R.id.txtComment);
 
         String letters = "abcdefghilmnopqrstuvzxykjw";
         String numbers = "1234567890";
         String specialChars = ",._-*?!";
-        String password = textPassword.getText().toString();
         int n = 0;
 
         //lettere minuscole e maiuscole
