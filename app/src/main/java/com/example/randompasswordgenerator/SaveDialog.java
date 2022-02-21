@@ -63,7 +63,7 @@ public class SaveDialog extends AppCompatDialogFragment {
 
                         //casi d'errore
                         if(editTextName.getText().length() == 0 || editTextUsername.getText().length() == 0 || editTextPassword.getText().length() == 0){
-                            Toast.makeText(view.getContext(), "Argument Missing!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

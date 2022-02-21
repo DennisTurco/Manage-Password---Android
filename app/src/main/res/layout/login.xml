@@ -19,8 +19,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="383dp"
+        android:layout_height="21dp"
+        android:text="@string/creatori"
+        android:textAlignment="center"
+        android:textColor="#630A0A"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRegister"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="© 2022 Gurpinder Kumar &amp; Dennis Turco &amp; Pardeep Kumar" />
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/boxUsername"
+        android:id="@+id/boxEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,12 +63,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.088"
+        app:layout_constraintVertical_bias="0.08"
         app:startIconDrawable="@drawable/ic_user"
         app:startIconTint="#FFFFFF">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textUsername"
+            android:id="@+id/textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="20"
@@ -88,8 +104,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/boxUsername"
-        app:layout_constraintVertical_bias="0.459"
+        app:layout_constraintTop_toBottomOf="@+id/boxEmail"
+        app:layout_constraintVertical_bias="0.259"
         app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
         app:startIconTint="#FFFFFF">
 
@@ -97,8 +113,8 @@
             android:id="@+id/textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="20"
             android:inputType="textPassword"
+            android:maxLength="20"
             android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             android:textColorLink="#FFFFFF"
@@ -131,15 +147,15 @@
         android:id="@+id/btnRegister"
         android:layout_width="171dp"
         android:layout_height="69dp"
-        android:backgroundTint="#CD2F67"
-        android:textStyle="bold|italic"
-        android:text="Login"
         android:background="@drawable/button_background"
+        android:backgroundTint="#CD2F67"
+        android:text="Login"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintTop_toBottomOf="@+id/boxEmail"
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/txtRegister"
@@ -158,9 +174,5 @@
         app:layout_constraintTop_toBottomOf="@+id/boxPassword"
         app:layout_constraintVertical_bias="0.451"
         tools:ignore="TouchTargetSizeCheck" />
-
-    <include
-        layout="@layout/top_bar"
-        android:id="@+id/top"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

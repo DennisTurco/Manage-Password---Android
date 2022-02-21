@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar =  findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
 
-        //Ottengo il dato dal Login
+        //Ottengo il dato dal Choose
         Bundle message = getIntent().getExtras();
         if(message != null){
             User = message.getString("User");

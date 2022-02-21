@@ -53,6 +53,7 @@ public class ViewDialog extends AppCompatDialogFragment {
         btnCopyEmail = view.findViewById(R.id.btnCopyEmail);
         btnCopyPassword = view.findViewById(R.id.btnCopyPassword);
 
+
         //----------------------------- Button Copy Email------------------------------
         btnCopyEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +66,8 @@ public class ViewDialog extends AppCompatDialogFragment {
                 //messaggio per il feedback
                 Snackbar snackbar = Snackbar.make(v, "email copied!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
+
+                btnCopyEmail.setVisibility(View.VISIBLE);
             }
         });
 
@@ -81,6 +84,8 @@ public class ViewDialog extends AppCompatDialogFragment {
                 //messaggio per il feedback
                 Snackbar snackbar = Snackbar.make(v, "password copied!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
+
+                btnCopyPassword.setVisibility(View.VISIBLE);
             }
         });
 

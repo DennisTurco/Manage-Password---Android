@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register);
 
-        textUsername = findViewById(R.id.textUsername);
+        textUsername = findViewById(R.id.textName);
         textPassword = findViewById(R.id.textPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
 

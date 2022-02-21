@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity{
         InterfaceImplementation inter = new InterfaceImplementation();
 
         //----------------------------- Button Login ------------------------------
-        username = findViewById(R.id.textUsername);
+        username = findViewById(R.id.textName);
         password = findViewById(R.id.textPassword);
         btnLogin = findViewById(R.id.btnRegister);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class Login extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
 
                         //TODO: aggiungere metodo alla interface e richiamarlo
-                        Intent in = new Intent(v.getContext(), MainActivity.class);
+                        Intent in = new Intent(v.getContext(), Choose.class);
                         in.putExtra("User", register.get(i).getUsername());
                         startActivity(in); //chiamata funzione cambio pagina
                         return;
