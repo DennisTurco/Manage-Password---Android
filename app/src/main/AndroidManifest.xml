@@ -34,6 +34,13 @@
             android:name=".Register"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".Choose"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SavePasswordManually"
+            android:screenOrientation="portrait" />
+
 
     </application>
 

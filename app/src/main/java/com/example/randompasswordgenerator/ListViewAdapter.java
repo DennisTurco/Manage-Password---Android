@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
-public class ListViewAdapter extends ArrayAdapter<String> {
-    private ArrayList<String> list;
+public class ListViewAdapter extends ArrayAdapter<DataList> {
+    private ArrayList<DataList> list;
     private Context context;
 
-    public ListViewAdapter(Context context, ArrayList<String> items) {
+    public ListViewAdapter(Context context, ArrayList<DataList> items) {
         super(context, R.layout.list_row, items);
         this.context = context;
         list = items;
@@ -33,7 +35,7 @@ public class ListViewAdapter extends ArrayAdapter<String> {
             number.setText(position + 1 + "");
 
             TextView name = convertView.findViewById(R.id.name);
-            name.setText(list.get(position));
+            name.setText(list.get(position).getName());
 
             ImageView remove = convertView.findViewById(R.id.remove);
             remove.setOnClickListener(new View.OnClickListener() {

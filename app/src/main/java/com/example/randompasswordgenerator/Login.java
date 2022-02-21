@@ -1,6 +1,5 @@
 package com.example.randompasswordgenerator;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,13 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -61,27 +60,10 @@ public class Login extends AppCompatActivity{
                     return;
                 }
 
-
                 Gson gson = new Gson();
 
-
                 //Read text from file
-                StringBuilder text = new StringBuilder();
-
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    String line;
-
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
-                    }
-                    br.close();
-                }
-                catch (IOException e) {
-                    //You'll need to add proper error handling here
-                }
-
+                StringBuilder text = inter.ReadFromFile(file);
 
                 //CONTROLLO SULL'ESISTENZA DELL'UTENTE
                 register = new ArrayList<>();
@@ -93,10 +75,7 @@ public class Login extends AppCompatActivity{
                     if(register.get(i).getUsername().equals(data.getUsername())  &&  register.get(i).getPassword().equals(data.getPassword())) {
                         Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
 
-                        //TODO: aggiungere metodo alla interface e richiamarlo
-                        Intent in = new Intent(v.getContext(), Choose.class);
-                        in.putExtra("User", register.get(i).getUsername());
-                        startActivity(in); //chiamata funzione cambio pagina
+                        inter.RedirectActivityPutsExtra(Login.this, Choose.class, v, register.get(i).getUsername(), "User");
                         return;
                     }
 
@@ -115,7 +94,7 @@ public class Login extends AppCompatActivity{
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inter.redirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
+                inter.RedirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 Log.d("Success", "change activity to 'Register' activity");            }
         });

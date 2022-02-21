@@ -7,31 +7,29 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Activity_PasswordList extends AppCompatActivity{
 
     private ImageButton buttonBack;
-    private String User;
-    private ArrayList<DataList> dataList;
+    private static InterfaceImplementation inter = new InterfaceImplementation();
+    private static String User;
+    private static ArrayList<DataList> dataList;
 
     //sono indicati come static perchè vengono utilizzati dalla funzione "removeItem che è a sua volta static"
     private static ListView listView;
-    private static ArrayList<String> info;
+    private static ArrayList<DataList> info;
     private static ListViewAdapter dataListAdapter;
     private static Context context;
+    private static File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataList.txt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +45,8 @@ public class Activity_PasswordList extends AppCompatActivity{
         }
 
         //OTTENGO GLI ELEMENTI DELLA LISTA
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "./RandomPasswordGenerator/DataList.txt");
-
         //Read text from file
-        StringBuilder text = new StringBuilder();
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                text.append(line);
-                text.append('\n');
-            }
-            br.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        StringBuilder text = inter.ReadFromFile(file);
 
         Gson gson = new Gson();
         dataList = new ArrayList<>();
@@ -75,11 +56,10 @@ public class Activity_PasswordList extends AppCompatActivity{
 
 
         //----------------------------- Creazione Lista ------------------------------
-
         info = new ArrayList<>();
         for (int i=0; i<dataList.size(); i++){
             if (User.equals(dataList.get(i).getUsername())){ //devo prendere le password solo dell'utente loggato
-                info.add(dataList.get(i).getName());
+                info.add(dataList.get(i));
             }
         }
 
@@ -90,8 +70,7 @@ public class Activity_PasswordList extends AppCompatActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String element = parent.getItemAtPosition(position).toString();
-                openDialog(view, dataList.get(position).getName(), dataList.get(position).getEmail(), dataList.get(position).getPassword());
+                openDialog(view, info.get(position).getName(), info.get(position).getEmail(), info.get(position).getPassword());
             }
         });
 
@@ -105,19 +84,32 @@ public class Activity_PasswordList extends AppCompatActivity{
 
     //è definita come static perchè in questo modo è riferibile da altre classi, in particolare dalla classe ListViewAdapter
     public static void removeItem(int i){  //funzione per la rimozione di un elemento dalla lista
-        makeToast("Removed: " + info.get(i));
         info.remove(i);
+
+        ArrayList<DataList> d = new ArrayList<>();
+        for (int j=0; j<dataList.size(); j++){
+            if (!User.equals(dataList.get(j).getUsername())){ //devo prendere le password solo dell'utente loggato
+                d.add(dataList.get(j));
+            }
+        }
+        d.addAll(info);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(d);
+
+        inter.WriteToFile(json ,file);
+
         listView.setAdapter(dataListAdapter);
+
+        //TODO: FIXHERE -> messaggio per il feedback
+        /*ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
+        Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
+                .setAction("Dimiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+        snackbar.show();*/
     }
-
-    // function to make a Toast given a string
-    static Toast t;
-
-    private static void makeToast(String s) {
-        if (t != null) t.cancel();
-        t = Toast.makeText(context, s, Toast.LENGTH_SHORT);
-        t.show();
-    }
-
 
 }

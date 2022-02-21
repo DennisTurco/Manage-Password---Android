@@ -5,9 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,9 +22,12 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar =  findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
+
+        InterfaceImplementation inter = new InterfaceImplementation();
 
         //Ottengo il dato dal Choose
         Bundle message = getIntent().getExtras();
@@ -92,13 +95,7 @@ public class MainActivity extends AppCompatActivity {
         buttonPasswordList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*InterfaceImplementation inter = new InterfaceImplementation();
-                inter.redirectActivity(MainActivity.this,Activity_PasswordList.class); //chiamata alla funzione per cambio pagina*/
-
-                //TODO: aggiungere metodo alla interface e richiamarlo
-                Intent in = new Intent(view.getContext(), Activity_PasswordList.class);
-                in.putExtra("User", User);
-                startActivity(in); //chiamata funzione cambio pagina
+                inter.RedirectActivityPutsExtra(MainActivity.this, Activity_PasswordList.class, view, User, "User");
             }
         });
 
@@ -108,68 +105,14 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("WrongConstant")
             @Override
             public void onClick(View v) {
-                cb_minusc = findViewById(R.id.cb_minusc);
-                cb_maiusc = findViewById(R.id.cb_maiusc);
-                cb_numbers = findViewById(R.id.cb_numbers);
-                cb_special = findViewById(R.id.cb_special);
 
-                String letters = "abcdefghijklmnopqrstuvwxyz";
-                String numbers = "1234567890";
-                String special = ",.-_!?#";
-                String password = "";
-
-                Random random = new Random();
-                int value;
-
-                //casi d'errore
-                if ((!cb_minusc.isChecked() && !cb_maiusc.isChecked() && !cb_numbers.isChecked() && !cb_special.isChecked()) || seekbar.getProgress()/6 == 0 ){
-                    Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //TODO: eliminare la possibilità di inserire spazi vuoti
-                //TODO: maggiore controllo sui tipi di caratteri immessi
-
-                textPassword = findViewById(R.id.editText);
-                textPassword.setVisibility(View.VISIBLE);
-
-                //riproduzione souno
-                generateSound.start();
-
-                //calcolo della password
-                for(int i=0; i<seekbar.getProgress()/6; i++) {
-
-                    value = random.nextInt(4 - 1 + 1) + 1;  //questa funzione ci da un numero randomico compreso tra 1 e 4
-
-                    if(cb_minusc.isChecked() &&  value == 1) {
-                        //lettera minuscola
-                        value = random.nextInt(25+ 1);
-                        password += letters.substring(value, value+1);
-                    }
-                    else if(cb_maiusc.isChecked() &&  value == 2) {
-                        //lettera maiuscola
-                        value = random.nextInt(25 + 1);
-                        password += letters.toUpperCase().substring(value, value + 1);
-                    }
-                    else if(cb_special.isChecked() &&  value == 3){
-                        //carattere speciale
-                        value = random.nextInt(6 + 1);
-                        password += special.substring(value, value+1);
-                    }
-                    else if(cb_numbers.isChecked() &&  value == 4) {
-                        //numero
-                        value = random.nextInt(9 + 1);
-                        password += numbers.substring(value, value + 1);
-                    }
-
-                    else {  //a volte capita che non entra in nessun if quindi resetto il ciclo con i--
-                        i--;
-                    }
-
-                }
-
+                //funzione per la generazione della password
+                String password = GeneratePassword();
 
                 //----------------------------- Text Comment ------------------------------
-                Comment(password);
+                textPassword = findViewById(R.id.editText);
+                textComment = findViewById(R.id.txtComment);
+                inter.Comment(password, textComment);
                 btnCopy = (ImageButton) findViewById(R.id.btnCopy);
                 btnCopy.setVisibility(View.VISIBLE);
                 btnSave = (ImageButton) findViewById(R.id.btnSave);
@@ -182,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        String result = Comment(textPassword.getText().toString()); //chiamata alla funzione Comment
+                        String result = inter.Comment(textPassword.getText().toString(), textComment); //chiamata alla funzione Comment
 
                         if(result.equals("Password Too Short!")){
                             btnSave.setVisibility(View.INVISIBLE);
@@ -239,6 +182,67 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public String GeneratePassword(){
+        cb_minusc = findViewById(R.id.cb_minusc);
+        cb_maiusc = findViewById(R.id.cb_maiusc);
+        cb_numbers = findViewById(R.id.cb_numbers);
+        cb_special = findViewById(R.id.cb_special);
+
+        String letters = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "1234567890";
+        String special = ",.-_!?#";
+        String password = "";
+
+        Random random = new Random();
+        int value;
+
+        //casi d'errore
+        if ((!cb_minusc.isChecked() && !cb_maiusc.isChecked() && !cb_numbers.isChecked() && !cb_special.isChecked()) || seekbar.getProgress()/6 == 0 ){
+            Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        //TODO: eliminare la possibilità di inserire spazi vuoti
+        //TODO: maggiore controllo sui tipi di caratteri immessi
+
+        textPassword = findViewById(R.id.editText);
+        textPassword.setVisibility(View.VISIBLE);
+
+        //riproduzione souno
+        generateSound.start();
+
+        //calcolo della password
+        for(int i=0; i<seekbar.getProgress()/6; i++) {
+
+            value = random.nextInt(4 - 1 + 1) + 1;  //questa funzione ci da un numero randomico compreso tra 1 e 4
+
+            if(cb_minusc.isChecked() &&  value == 1) {
+                //lettera minuscola
+                value = random.nextInt(25+ 1);
+                password += letters.substring(value, value+1);
+            }
+            else if(cb_maiusc.isChecked() &&  value == 2) {
+                //lettera maiuscola
+                value = random.nextInt(25 + 1);
+                password += letters.toUpperCase().substring(value, value + 1);
+            }
+            else if(cb_special.isChecked() &&  value == 3){
+                //carattere speciale
+                value = random.nextInt(6 + 1);
+                password += special.substring(value, value+1);
+            }
+            else if(cb_numbers.isChecked() &&  value == 4) {
+                //numero
+                value = random.nextInt(9 + 1);
+                password += numbers.substring(value, value + 1);
+            }
+
+            else {  //a volte capita che non entra in nessun if quindi resetto il ciclo con i--
+                i--;
+            }
+        }
+        return password;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permission, grantResults);
@@ -277,71 +281,6 @@ public class MainActivity extends AppCompatActivity {
     public void openDialog(View view, String text, String text2){
         SaveDialog saveDialog = new SaveDialog(text, text2); //oggetto della classe SaveDialog
         saveDialog.show(getSupportFragmentManager(), "example dialog");
-    }
-
-    @SuppressLint("SetTextI18n")
-    public String Comment(String password) {
-        textPassword = findViewById(R.id.editText);
-        textComment = findViewById(R.id.txtComment);
-
-        String letters = "abcdefghilmnopqrstuvzxykjw";
-        String numbers = "1234567890";
-        String specialChars = ",._-*?!";
-        int n = 0;
-
-        //lettere minuscole e maiuscole
-        for (int i=0; i<password.length(); i++){
-            for (int j=0; j<letters.length(); j++) {
-                if ( (password.charAt(i) == letters.charAt(j)) || (password.charAt(i) == letters.toUpperCase().charAt(j)) ) {
-                    n = n + 3;
-                }
-            }
-        }
-        //numeri
-        for (int i=0; i<password.length(); i++){
-            for (int j=0; j<numbers.length(); j++) {
-                if (password.charAt(i) == numbers.charAt(j)) {
-                    n = n + 8;
-                }
-            }
-        }
-        //caratteri speciali
-        for (int i=0; i<password.length(); i++){
-            for (int j=0; j<specialChars.length(); j++) {
-                if (password.charAt(i) == specialChars.charAt(j)) {
-                    n = n + 10;
-                }
-            }
-        }
-
-        textComment.setVisibility(View.VISIBLE);
-
-        if (n == 0) {
-            textComment.setTextColor(Color.RED);
-            textComment.setText("Password Too Short!");
-        }
-        if (n > 0 && n < 20) {
-            textComment.setTextColor(Color.RED);
-            textComment.setText("Password Very Weak!");
-        }
-        if (n >= 20 && n < 40) {
-            textComment.setTextColor(Color.RED);
-            textComment.setText("Password Weak!");
-        }
-        if (n >= 40 && n < 60) {
-            textComment.setTextColor(Color.YELLOW);
-            textComment.setText("Password Good!");
-        }
-        if (n >= 60 && n < 80) {
-            textComment.setTextColor(Color.YELLOW);
-            textComment.setText("Password Strong!");
-        }
-        if (n >= 80) {
-            textComment.setTextColor(Color.GREEN);
-            textComment.setText("Password Very Strong!");
-        }
-
-        return textComment.getText().toString();
     }
 
 }

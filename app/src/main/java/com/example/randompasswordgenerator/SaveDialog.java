@@ -5,21 +5,16 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatDialogFragment;
+
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SaveDialog extends AppCompatDialogFragment {
@@ -27,19 +22,21 @@ public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private String Password;
-    private String User;
+    private String User = "";
     private ArrayList<DataList> dataList;
 
     public SaveDialog(){}
 
-    public SaveDialog(String text, String text2){
-        Password = text;
-        User = text2;
+    public SaveDialog(String password, String user){
+        Password = password;
+        User = user;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        InterfaceImplementation inter = new InterfaceImplementation();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
@@ -68,66 +65,18 @@ public class SaveDialog extends AppCompatDialogFragment {
                         }
 
                         //create File
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "./RandomPasswordGenerator/DataList.txt");
-                        if (!file.exists()) {
-                            try {
-                                file.createNewFile();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                        File file = inter.CheckOrCreateFile("./RandomPasswordGenerator/DataList.txt");
 
                         //Read text from file
-                        StringBuilder text = new StringBuilder();
+                        StringBuilder text = inter.ReadFromFile(file);
 
-                        try {
-                            BufferedReader br = new BufferedReader(new FileReader(file));
-                            String line;
-
-                            while ((line = br.readLine()) != null) {
-                                text.append(line);
-                                text.append('\n');
-                            }
-                            br.close();
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        Gson gson = new Gson();
-                        DataList data = new DataList(User, editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
-                        dataList = new ArrayList<>();
-
-                        if(!text.toString().isEmpty() && text != null){
-                            Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
-                            dataList = gson.fromJson(text.toString(), type);
-
-                            for (DataList d: dataList) {
-                                if(d.getPassword().equals(data.getPassword()) && d.getName().equals(data.getName()) && d.getEmail().equals(data.getEmail())){
-                                    Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-
-                        }
-
-                        dataList.add(data);
-
-                        String json = gson.toJson(dataList);
-
+                        //serialize list
+                        String json = inter.GetStringJson(dataList, User, text, view, editTextName.getText().toString(), editTextUsername.getText().toString(), editTextPassword.getText().toString());
 
                         //write to file
-                        try {
-                            FileOutputStream fos = null;
-                            fos = new FileOutputStream(file);
-                            fos.write(json.getBytes()); //nome
-                            Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
-                            fos.close();
-                        } catch (IOException e) {
-                            Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
+                        boolean correct = inter.WriteToFile(json, file);
+                        if (correct) Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
+                        else Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
 
 
                         //TODO: FIXHERE -> messaggio per il feedback
@@ -148,4 +97,5 @@ public class SaveDialog extends AppCompatDialogFragment {
 
 
     }
+
 }
