@@ -139,7 +139,7 @@ public class Register extends AppCompatActivity {
 
                 InterfaceImplementation inter = new InterfaceImplementation();
                 inter.redirectActivity(Register.this, Login.class);
-
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 

@@ -92,7 +92,6 @@ public class Activity_PasswordList extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String element = parent.getItemAtPosition(position).toString();
                 openDialog(view, dataList.get(position).getName(), dataList.get(position).getEmail(), dataList.get(position).getPassword());
-                Toast.makeText(getApplicationContext(), element + "\n" + dataList.get(position).getEmail() + "\n" + dataList.get(position).getPassword() , Toast.LENGTH_SHORT).show();
             }
         });
 

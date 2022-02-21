@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO: criptare i file salvati
 
+    //TODO: inserire i vari LOG message associati ad eventi
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -258,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -338,8 +341,7 @@ public class MainActivity extends AppCompatActivity {
             textComment.setText("Password Very Strong!");
         }
 
-        String text = textComment.getText().toString();
-        return text;
+        return textComment.getText().toString();
     }
 
 }

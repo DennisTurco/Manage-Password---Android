@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -43,6 +44,8 @@ public class Login extends AppCompatActivity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.d("Success", "Button 'Login'");
 
                 //TODO: controllo errori immissione campi
                 //controllo errori input
@@ -113,7 +116,8 @@ public class Login extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 inter.redirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
-            }
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                Log.d("Success", "change activity to 'Register' activity");            }
         });
     }
 
