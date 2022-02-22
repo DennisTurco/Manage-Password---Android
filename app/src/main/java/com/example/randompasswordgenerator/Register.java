@@ -1,5 +1,8 @@
 package com.example.randompasswordgenerator;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -12,7 +15,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +35,8 @@ public class Register extends AppCompatActivity {
     private ImageButton btnShow;
     private TextView textComment;
     private ArrayList<DataLogin> register;
+
+    private int STORAGE_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,11 @@ public class Register extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //richista di ottenimento dei permessi qualora non siano già stati dati
+                if(ContextCompat.checkSelfPermission(Register.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    requestStoragePermissions();
+                }
 
                 //casi d'errore
                 if(textUsername.getText().length() == 0 || textPassword.getText().length() == 0) {
@@ -103,7 +116,10 @@ public class Register extends AppCompatActivity {
                 //AGGIUNTA DELL'UTENTE AL FILE TXT
                 boolean correct = inter.WriteToFile(json, file);
                 if (correct) Toast.makeText(v.getContext(), "User Created!", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(v.getContext(), "Error! User Creation!", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(v.getContext(), "Error! User Creation!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 inter.RedirectActivity(Register.this, Login.class);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -112,7 +128,28 @@ public class Register extends AppCompatActivity {
 
     }
 
+    void requestStoragePermissions(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission needed!")
+                    .setMessage("This permission is needed because this application have to save information on the storage to work!")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            dialog.dismiss();
+                        }
 
-
+                    })
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
 
 }

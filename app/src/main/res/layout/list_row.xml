@@ -28,7 +28,7 @@
         android:layout_height="22sp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="18sp"
+        android:layout_marginRight="45dp"
         android:src="@drawable/ic_remove" />
 
 </RelativeLayout>

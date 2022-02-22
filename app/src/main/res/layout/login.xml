@@ -143,7 +143,6 @@
         android:id="@+id/btnRegister"
         android:layout_width="171dp"
         android:layout_height="69dp"
-        android:background="@drawable/button_background"
         android:backgroundTint="#CD2F67"
         android:text="Login"
         android:textStyle="bold|italic"

@@ -44,6 +44,7 @@ public class InterfaceImplementation implements interfaceRedirect {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e("error", e.toString());
             }
         }
         return file;
@@ -64,6 +65,7 @@ public class InterfaceImplementation implements interfaceRedirect {
         }
         catch (IOException e) {
             e.printStackTrace();
+            Log.e("error", e.toString());
         }
         return text;
     }
@@ -106,11 +108,9 @@ public class InterfaceImplementation implements interfaceRedirect {
             fos = new FileOutputStream(file);
             fos.write(json.getBytes()); //nome
             correct = true;
-            //Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
             fos.close();
         } catch (IOException e) {
             correct = false;
-            //Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
             Log.e("error", e.toString());
             e.printStackTrace();
         }

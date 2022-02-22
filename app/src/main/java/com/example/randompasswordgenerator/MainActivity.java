@@ -22,12 +22,9 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private String User = "";
 
     //TODO: criptare i file salvati
+
+    //TODO: se si crea un account nuovo e poi si va direttamente nella password list senza creare una password nuova il programma crasha
 
     //TODO: inserire i vari LOG message associati ad eventi
 
@@ -182,6 +181,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permission, grantResults);
+        switch (requestCode) {
+            case 1000:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission granted!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission not granted!", Toast.LENGTH_SHORT).show();
+                }
+
+        }
+    }
+
+    //funzione per gli options menu sul ToolBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.id_logout:
+                Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_exit:
+                Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void openDialog(View view, String text, String text2){
+        SaveDialog saveDialog = new SaveDialog(text, text2); //oggetto della classe SaveDialog
+        saveDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
     public String GeneratePassword(){
         cb_minusc = findViewById(R.id.cb_minusc);
         cb_maiusc = findViewById(R.id.cb_maiusc);
@@ -241,46 +280,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return password;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permission, grantResults);
-        switch (requestCode) {
-            case 1000:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission granted!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission not granted!", Toast.LENGTH_SHORT).show();
-                }
-
-        }
-    }
-
-    //funzione per gli options menu sul ToolBar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
-            case R.id.id_logout:
-                Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.id_exit:
-                Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void openDialog(View view, String text, String text2){
-        SaveDialog saveDialog = new SaveDialog(text, text2); //oggetto della classe SaveDialog
-        saveDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
 }
