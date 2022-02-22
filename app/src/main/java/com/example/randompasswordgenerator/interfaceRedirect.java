@@ -3,7 +3,6 @@ package com.example.randompasswordgenerator;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-
 import java.io.File;
 import java.util.ArrayList;
 

@@ -51,6 +51,14 @@ public class Register extends AppCompatActivity {
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
 
+
+        //richista di ottenimento dei permessi qualora non siano già stati dati
+        if(ContextCompat.checkSelfPermission(Register.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestStoragePermissions();
+        }
+
+
+
         //----------------------------- Text Comment ------------------------------
         textComment = findViewById(R.id.txtComment2);
         textPassword.addTextChangedListener(new TextWatcher() {
@@ -71,11 +79,6 @@ public class Register extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //richista di ottenimento dei permessi qualora non siano già stati dati
-                if(ContextCompat.checkSelfPermission(Register.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                    requestStoragePermissions();
-                }
 
                 //casi d'errore
                 if(textUsername.getText().length() == 0 || textPassword.getText().length() == 0) {
@@ -115,7 +118,7 @@ public class Register extends AppCompatActivity {
 
                 //AGGIUNTA DELL'UTENTE AL FILE TXT
                 boolean correct = inter.WriteToFile(json, file);
-                if (correct) Toast.makeText(v.getContext(), "User Created!", Toast.LENGTH_SHORT).show();
+                if (correct) Toast.makeText(v.getContext(), "User '" + textUsername.getText().toString() + "' Created!", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(v.getContext(), "Error! User Creation!", Toast.LENGTH_SHORT).show();
                     return;
@@ -129,27 +132,16 @@ public class Register extends AppCompatActivity {
     }
 
     void requestStoragePermissions(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission needed!")
-                    .setMessage("This permission is needed because this application have to save information on the storage to work!")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){
-                            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){
-                            dialog.dismiss();
-                        }
-
-                    })
-                    .create().show();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-        }
+        new AlertDialog.Builder(this)
+                .setTitle("Permission needed!")
+                .setMessage("This permission is needed because this application have to save information on the storage to work!")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                    }
+                })
+                .create().show();
     }
 
 }
