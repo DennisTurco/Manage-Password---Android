@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO: criptare i file salvati
 
-    //TODO: se si crea un account nuovo e poi si va direttamente nella password list senza creare una password nuova il programma crasha
-
     //TODO: inserire i vari LOG message associati ad eventi
 
     @Override

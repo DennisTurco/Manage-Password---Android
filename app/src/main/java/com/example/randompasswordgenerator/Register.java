@@ -2,9 +2,13 @@ package com.example.randompasswordgenerator;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +43,7 @@ public class Register extends AppCompatActivity {
 
     private int STORAGE_PERMISSION_CODE = 1;
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,7 @@ public class Register extends AppCompatActivity {
 
 
         //richista di ottenimento dei permessi qualora non siano già stati dati
-        if(ContextCompat.checkSelfPermission(Register.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(Register.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(Register.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             requestStoragePermissions();
         }
 
@@ -121,6 +127,14 @@ public class Register extends AppCompatActivity {
                 if (correct) Toast.makeText(v.getContext(), "User '" + textUsername.getText().toString() + "' Created!", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(v.getContext(), "Error! User Creation!", Toast.LENGTH_SHORT).show();
+                    //TODO:FIXHERE -> L'ho piazzato qui per ora ma non è bellissimo
+                    if(!Environment.isExternalStorageManager()) {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                        Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
                     return;
                 }
 
@@ -136,9 +150,10 @@ public class Register extends AppCompatActivity {
                 .setTitle("Permission needed!")
                 .setMessage("This permission is needed because this application have to save information on the storage to work!")
                 .setPositiveButton("ok", new DialogInterface.OnClickListener(){
+                    @RequiresApi(api = Build.VERSION_CODES.R)
                     @Override
                     public void onClick(DialogInterface dialog, int which){
-                        ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                     }
                 })
                 .create().show();

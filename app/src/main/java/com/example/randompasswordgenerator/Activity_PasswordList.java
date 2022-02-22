@@ -52,8 +52,9 @@ public class Activity_PasswordList extends AppCompatActivity{
         dataList = new ArrayList<>();
 
         Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
-        dataList = gson.fromJson(text.toString(), type);
-
+        if(text.toString().length() != 0 && text != null){
+            dataList = gson.fromJson(text.toString(), type);
+        }
 
         //----------------------------- Creazione Lista ------------------------------
         info = new ArrayList<>();
