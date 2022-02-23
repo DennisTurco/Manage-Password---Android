@@ -2,6 +2,8 @@ package com.example.randompasswordgenerator;
 
 import android.content.ClipData;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -33,6 +35,8 @@ public class SavePasswordManually extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_password_manually);
 
+        //TODO:FIXHERE -> se si schiaccia 2 volte il tasto save senza cambiare nulla (immettendo gli stessi dati) il programma crasha
+
         InterfaceImplementation inter = new InterfaceImplementation();
 
         //Ottengo il dato dal Choose
@@ -45,7 +49,6 @@ public class SavePasswordManually extends AppCompatActivity {
         //----------------------------- Button Save ------------------------------
         editName = findViewById(R.id.textName);
         editEmail = findViewById(R.id.textEmail);
-
         btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +72,14 @@ public class SavePasswordManually extends AppCompatActivity {
 
                 //write to file
                 boolean correct = inter.WriteToFile(json, file);
-                if (correct) Toast.makeText(view.getContext(), "Password Saved!", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
+                if (!correct) {
+                    Toast.makeText(view.getContext(), "Operation Failed!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                editName.setText("");
+                editEmail.setText("");
+                editPassword.setText("");
 
 
                 //TODO: FIXHERE -> messaggio per il feedback
@@ -86,17 +95,18 @@ public class SavePasswordManually extends AppCompatActivity {
         });
 
 
-
+        //TODO:FIXHERE -> crash
         //----------------------------- Comment ------------------------------
-        editPassword = findViewById(R.id.editText);
+        editPassword = findViewById(R.id.textPassword);
         txtComment = findViewById(R.id.txtComment);
-        /*editPassword.addTextChangedListener(new TextWatcher() {
+        if(editPassword != null)
+        editPassword.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {} //inutile
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Comment(editPassword.getText().toString()); //chiamata alla funzione Comment()
+                inter.Comment(editPassword.getText().toString(), txtComment); //chiamata alla funzione Comment()
             }
-        });*/
+        });
 
 
 

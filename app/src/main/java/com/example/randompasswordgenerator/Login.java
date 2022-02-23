@@ -73,6 +73,7 @@ public class Login extends AppCompatActivity{
 
                 for(int i=0; i<register.size(); i++){
                     if(register.get(i).getUsername().equals(data.getUsername())  &&  register.get(i).getPassword().equals(data.getPassword())) {
+
                         Toast.makeText(getApplicationContext(), "Logged!", Toast.LENGTH_SHORT).show();
 
                         inter.RedirectActivityPutsExtra(Login.this, Choose.class, v, register.get(i).getUsername(), "User");
@@ -96,7 +97,8 @@ public class Login extends AppCompatActivity{
             public void onClick(View v) {
                 inter.RedirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                Log.d("Success", "change activity to 'Register' activity");            }
+                Log.d("Success", "change activity to 'Register' activity");
+            }
         });
     }
 

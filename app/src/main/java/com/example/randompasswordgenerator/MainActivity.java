@@ -45,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO: inserire i vari LOG message associati ad eventi
 
+    //TODO: ottimizzazzione del codice e ordine generale
+
+    //TODO: creare il file di log
+
+    //TODO: inserire la pubblicità
+
+    //TODO: definire la decisione di mercato
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +111,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                cb_minusc = findViewById(R.id.cb_minusc);
+                cb_maiusc = findViewById(R.id.cb_maiusc);
+                cb_numbers = findViewById(R.id.cb_numbers);
+                cb_special = findViewById(R.id.cb_special);
+
+                //casi d'errore
+                if ((!cb_minusc.isChecked() && !cb_maiusc.isChecked() && !cb_numbers.isChecked() && !cb_special.isChecked()) || (seekbar.getProgress()/6 == 0)){
+                    Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //funzione per la generazione della password
                 String password = GeneratePassword();
 
@@ -148,6 +167,20 @@ public class MainActivity extends AppCompatActivity {
                         //messaggio per il feedback
                         Snackbar snackbar = Snackbar.make(v, "password copied!", Snackbar.LENGTH_SHORT);
                         snackbar.show();
+                    }
+                });
+                textPassword.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        //copy
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("EditText", textPassword.getText().toString());
+                        clipboard.setPrimaryClip(clip);
+
+                        //messaggio per il feedback
+                        Snackbar snackbar = Snackbar.make(view, "password copied!", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                        return false;
                     }
                 });
 
@@ -220,24 +253,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String GeneratePassword(){
-        cb_minusc = findViewById(R.id.cb_minusc);
-        cb_maiusc = findViewById(R.id.cb_maiusc);
-        cb_numbers = findViewById(R.id.cb_numbers);
-        cb_special = findViewById(R.id.cb_special);
 
         String letters = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "1234567890";
         String special = ",.-_!?#";
         String password = "";
 
+
         Random random = new Random();
         int value;
 
-        //casi d'errore
-        if ((!cb_minusc.isChecked() && !cb_maiusc.isChecked() && !cb_numbers.isChecked() && !cb_special.isChecked()) || seekbar.getProgress()/6 == 0 ){
-            Toast.makeText(getApplicationContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
-            return null;
-        }
         //TODO: eliminare la possibilità di inserire spazi vuoti
         //TODO: maggiore controllo sui tipi di caratteri immessi
 

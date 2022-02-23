@@ -25,6 +25,8 @@ public class ViewDialog extends AppCompatDialogFragment {
     private ImageView btnCopyEmail;
     private ImageView btnCopyPassword;
 
+    //TODO:FIXHERE -> problema di visualizzazzione di email, password o nomi troppo lunghi, trovare soluzione
+
     public ViewDialog() {}
 
     public ViewDialog(String text1, String text2, String text3) {
@@ -51,6 +53,7 @@ public class ViewDialog extends AppCompatDialogFragment {
         btnCopyEmail = view.findViewById(R.id.btnCopyEmail);
         btnCopyPassword = view.findViewById(R.id.btnCopyPassword);
 
+        //TODO: aggiungere la possibilità di copiare il campo mantenendo premuto
 
         //----------------------------- Button Copy Email------------------------------
         btnCopyEmail.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +67,21 @@ public class ViewDialog extends AppCompatDialogFragment {
                 //messaggio per il feedback
                 Snackbar snackbar = Snackbar.make(v, "email copied!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
+            }
+        });
+        txtEmail.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //copy
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("TextView", txtEmail.getText().toString());
+                clipboard.setPrimaryClip(clip);
 
-                btnCopyEmail.setVisibility(View.VISIBLE);
+                //messaggio per il feedback
+                Snackbar snackbar = Snackbar.make(view, "email copied!", Snackbar.LENGTH_SHORT);
+                snackbar.show();
+
+                return false;
             }
         });
 
@@ -82,8 +98,20 @@ public class ViewDialog extends AppCompatDialogFragment {
                 //messaggio per il feedback
                 Snackbar snackbar = Snackbar.make(v, "password copied!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
+            }
+        });
+        txtPassword.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //copy
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("TextView", txtPassword.getText().toString());
+                clipboard.setPrimaryClip(clip);
 
-                btnCopyPassword.setVisibility(View.VISIBLE);
+                //messaggio per il feedback
+                Snackbar snackbar = Snackbar.make(view, "password copied!", Snackbar.LENGTH_SHORT);
+                snackbar.show();
+                return false;
             }
         });
 
