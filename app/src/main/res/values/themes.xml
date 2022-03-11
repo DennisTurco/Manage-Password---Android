@@ -16,9 +16,9 @@
     </style>
 
     <!-- for toolbar style -->
-    <style name="ToolBarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:actionMenuTextColor">@color/purple_700</item>
+    <style name="ThemeOverlay.PopupTheme" parent="Theme.AppCompat.Light">
+        <item name="subtitleTextColor">@color/black</item>
+        <item name="android:subtitleTextStyle">@font/acme</item>
     </style>
+
 </resources>

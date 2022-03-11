@@ -17,7 +17,8 @@
 
     <!-- for toolbar style -->
     <style name="ThemeOverlay.PopupTheme" parent="Theme.AppCompat.Light">
-        <item name="android:actionMenuTextColor">@color/purple_700</item>
+        <item name="subtitleTextColor">@color/black</item>
+        <item name="android:subtitleTextStyle">@font/acme</item>
     </style>
 
 </resources>

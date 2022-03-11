@@ -37,6 +37,9 @@ public class ListViewAdapter extends ArrayAdapter<DataList> {
             TextView name = convertView.findViewById(R.id.name);
             name.setText(list.get(position).getName());
 
+            TextView email = convertView.findViewById(R.id.email);
+            email.setText(list.get(position).getEmail());
+
             ImageView remove = convertView.findViewById(R.id.remove);
             remove.setOnClickListener(new View.OnClickListener() {
                 @Override

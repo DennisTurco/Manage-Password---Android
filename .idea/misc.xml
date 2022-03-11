@@ -7,6 +7,7 @@
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/button_background.xml" value="0.2388888888888889" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/ic_error.xml" value="0.2296875" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/ic_menu.xml" value="0.2296875" />
+        <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/ic_more.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/ic_round_check.xml" value="0.2296875" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/drawable/ic_user.xml" value="0.2296875" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/activity_2.xml" value="0.1" />
@@ -21,7 +22,7 @@
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/register.xml" value="0.33" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/save_password_manually.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/test.xml" value="0.5" />
-        <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/top_bar.xml" value="0.1" />
+        <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/top_bar.xml" value="0.33" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/layout/view_dialog.xml" value="0.67" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/menu/menu.xml" value="0.33" />
         <entry key="..\:/Users/Dennis/AndroidStudioProjects/RandomPasswordGenerator/app/src/main/res/menu/menu_choose.xml" value="0.18385416666666668" />

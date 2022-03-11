@@ -48,6 +48,7 @@ public class SaveDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Save Password")
+                .setCancelable(false)
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {

@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +14,7 @@
         app:title="@string/app_name"
         app:titleTextColor="#FFFFFF"
         android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/ToolBarStyle"
-        android:theme="?attr/actionBarTheme" />
+        app:popupTheme="@style/ThemeOverlay.PopupTheme"
+        android:theme="?attr/actionBarTheme"/>
 
 </LinearLayout>

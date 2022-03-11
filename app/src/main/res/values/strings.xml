@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">RandomPasswordGenerator</string>
-    <string name="user">User</string>/>
+    <string name="user">User</string>
+    <string name="password_list">Password List</string>
+    <string name="insert_manually">Insert Manually</string>
+    <string name="password_generator">Password Generator</string>
+    <string name="logout">Logout</string>
+    <string name="exit">Exit</string>/>
 </resources>

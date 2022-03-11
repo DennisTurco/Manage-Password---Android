@@ -38,6 +38,8 @@ public class SavePasswordManually extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_password_manually);
 
+        //TODO:FIXHERE -> se aggiungo 2 volte consecutive lo stesso account crasha
+
         InterfaceImplementation inter = new InterfaceImplementation();
 
         //Ottengo il dato dal Choose
@@ -87,7 +89,7 @@ public class SavePasswordManually extends AppCompatActivity {
 
 
                 ClipData.newPlainText("simple text", editName.getText());
-                Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_LONG)
                         .setAction("Dimiss", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -104,15 +106,9 @@ public class SavePasswordManually extends AppCompatActivity {
                                     dataList = gson.fromJson(text.toString(), type);
                                 }
 
-                                //TODO:FIXHERE -> potrebbe esserci un modo piu' veloce di togliere l'ultimo elemento
                                 dataList.remove(dataList.size()-1);
 
                                 ArrayList<DataList> d = new ArrayList<>();
-                                for (int j=0; j<dataList.size()-1; j++){ //-1 perche' non voglio l'ultimo elemento
-                                    if (!User.equals(dataList.get(j).getUsername())){ //devo prendere le password solo dell'utente loggato
-                                        d.add(dataList.get(j));
-                                    }
-                                }
                                 d.addAll(dataList);
 
                                 String json = gson.toJson(d);

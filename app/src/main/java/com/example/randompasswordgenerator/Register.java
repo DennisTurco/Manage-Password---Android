@@ -146,6 +146,7 @@ public class Register extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Permission needed!")
                 .setMessage("This permission is needed because this application have to save information on the storage to work!")
+                .setCancelable(false)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener(){
                     @RequiresApi(api = Build.VERSION_CODES.R)
                     @Override
