@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
+        android:maxLength="22"
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:maxLength="25"
         android:inputType="textEmailAddress"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:maxLength="20"
         tools:ignore="TouchTargetSizeCheck" />
 
 </LinearLayout>

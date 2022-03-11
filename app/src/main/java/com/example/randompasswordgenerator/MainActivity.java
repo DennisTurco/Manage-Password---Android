@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -22,9 +23,13 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textComment;
     private MediaPlayer generateSound;
     private ImageButton btnSave, btnCopy;
-    private androidx.appcompat.widget.Toolbar toolbar;
     private String User = "";
+    private InterfaceImplementation inter = new InterfaceImplementation();
 
     //TODO: criptare i file salvati
 
@@ -60,10 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         generateSound = MediaPlayer.create(MainActivity.this, R.raw.spin);  // per il suono dello "spin"
 
-        toolbar =  findViewById(R.id.topBar);
-        setSupportActionBar(toolbar);
-
-        InterfaceImplementation inter = new InterfaceImplementation();
+        Toolbar tb = (Toolbar) findViewById(R.id.topBar);
+        setSupportActionBar(tb);
 
         //Ottengo il dato dal Choose
         Bundle message = getIntent().getExtras();
@@ -229,18 +232,37 @@ public class MainActivity extends AppCompatActivity {
     //funzione per gli options menu sul ToolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
-            case R.id.id_logout:
+            case R.id.logout:
+                inter.RedirectActivity(MainActivity.this, Login.class);
                 Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.id_exit:
+            case R.id.password_generator:
+                //inter.RedirectActivityPutsExtra(MainActivity.this, MainActivity.class, , User, "User");
+                Toast.makeText(getApplicationContext(), "Password Generator", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.insert_manually:
+                //inter.RedirectActivityPutsExtra(MainActivity.this, SavePasswordManually.class, , User, "User");
+                Toast.makeText(getApplicationContext(), "Insert Manually", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.password_list:
+                //inter.RedirectActivityPutsExtra(MainActivity.this, Activity_PasswordList.class, , User, "User"););
+                Toast.makeText(getApplicationContext(), "Password List", Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.exit:
+                //per uscire
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
                 Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_SHORT).show();
                 break;
         }

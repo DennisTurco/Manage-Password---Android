@@ -14,8 +14,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SavePasswordManually extends AppCompatActivity {
@@ -26,16 +29,14 @@ public class SavePasswordManually extends AppCompatActivity {
     private EditText editEmail;
     private EditText editPassword;
     private TextView txtComment;
-    private String User = "";
-    private ArrayList<DataList> dataList;
+    private static String User = "";
+    private static ArrayList<DataList> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.save_password_manually);
-
-        //TODO:FIXHERE -> se si schiaccia 2 volte il tasto save senza cambiare nulla (immettendo gli stessi dati) il programma crasha
 
         InterfaceImplementation inter = new InterfaceImplementation();
 
@@ -49,6 +50,7 @@ public class SavePasswordManually extends AppCompatActivity {
         //----------------------------- Button Save ------------------------------
         editName = findViewById(R.id.textName);
         editEmail = findViewById(R.id.textEmail);
+        txtComment = findViewById(R.id.txtComment2);
         btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,29 +79,54 @@ public class SavePasswordManually extends AppCompatActivity {
                     return;
                 }
 
+                //pulizia dei campi
                 editName.setText("");
                 editEmail.setText("");
                 editPassword.setText("");
+                txtComment.setVisibility(View.INVISIBLE);
 
 
-                //TODO: FIXHERE -> messaggio per il feedback
-                ClipData clip = ClipData.newPlainText("simple text", editName.getText());
+                ClipData.newPlainText("simple text", editName.getText());
                 Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
                         .setAction("Dimiss", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+                                //OTTENGO GLI ELEMENTI DELLA LISTA
+                                //Read text from file
+                                StringBuilder text = inter.ReadFromFile(file);
+
+                                Gson gson = new Gson();
+                                dataList = new ArrayList<>();
+
+                                Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
+                                if(text.toString().length() != 0){
+                                    dataList = gson.fromJson(text.toString(), type);
+                                }
+
+                                //TODO:FIXHERE -> potrebbe esserci un modo piu' veloce di togliere l'ultimo elemento
+                                dataList.remove(dataList.size()-1);
+
+                                ArrayList<DataList> d = new ArrayList<>();
+                                for (int j=0; j<dataList.size()-1; j++){ //-1 perche' non voglio l'ultimo elemento
+                                    if (!User.equals(dataList.get(j).getUsername())){ //devo prendere le password solo dell'utente loggato
+                                        d.add(dataList.get(j));
+                                    }
+                                }
+                                d.addAll(dataList);
+
+                                String json = gson.toJson(d);
+
+                                inter.WriteToFile(json ,file);
                             }
                         });
                 snackbar.show();
             }
         });
 
-
-        //TODO:FIXHERE -> crash
         //----------------------------- Comment ------------------------------
         editPassword = findViewById(R.id.textPassword);
         txtComment = findViewById(R.id.txtComment);
-        if(editPassword != null)
         editPassword.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {} //inutile
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //inutile

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +36,9 @@ public class Register extends AppCompatActivity {
     private EditText textUsername;
     private EditText textPassword;
     private Button btnRegister;
-    private ImageButton btnShow;
     private TextView textComment;
     private ArrayList<DataLogin> register;
+    private InterfaceImplementation inter = new InterfaceImplementation();
 
     private int STORAGE_PERMISSION_CODE = 1;
 
@@ -49,8 +48,6 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register);
-
-        InterfaceImplementation inter = new InterfaceImplementation();
 
         textUsername = findViewById(R.id.textName);
         textPassword = findViewById(R.id.textPassword);
@@ -157,6 +154,12 @@ public class Register extends AppCompatActivity {
                     }
                 })
                 .create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        inter.RedirectActivity(Register.this, Login.class);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

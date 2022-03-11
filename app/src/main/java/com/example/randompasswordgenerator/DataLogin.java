@@ -5,9 +5,6 @@ public class DataLogin {
     private String Username;
     private String Password;
 
-    //TODO: aggiungere ingresso admin
-    private boolean Admin;
-
     public DataLogin(){}
 
     public DataLogin(String text1, String text2){

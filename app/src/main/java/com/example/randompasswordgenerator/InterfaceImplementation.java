@@ -25,6 +25,7 @@ public class InterfaceImplementation implements interfaceRedirect {
     @Override
     public void RedirectActivity(Context packageContext, Class<?> cls2) {
         Intent intent = new Intent(packageContext, cls2);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         packageContext.startActivity(intent);
     }
 

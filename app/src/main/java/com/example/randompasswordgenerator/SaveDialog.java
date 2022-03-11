@@ -23,7 +23,7 @@ public class SaveDialog extends AppCompatDialogFragment {
     private EditText editTextPassword;
     private String Password;
     private String User = "";
-    private ArrayList<DataList> dataList;
+    private ArrayList<DataList> dataList = null;
 
     public SaveDialog(){}
 
@@ -58,7 +58,7 @@ public class SaveDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
-                        //casi d'errore
+                        //casi di errore
                         if(editTextName.getText().length() == 0 || editTextUsername.getText().length() == 0 || editTextPassword.getText().length() == 0){
                             Toast.makeText(view.getContext(), "Error! Argument Missing!", Toast.LENGTH_SHORT).show();
                             return;
@@ -80,7 +80,7 @@ public class SaveDialog extends AppCompatDialogFragment {
 
 
                         //TODO: FIXHERE -> messaggio per il feedback
-                        ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
+                        ClipData.newPlainText("simple text", editTextPassword.getText());
                         Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
                                 .setAction("Dimiss", new View.OnClickListener() {
                                     @Override

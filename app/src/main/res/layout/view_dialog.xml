@@ -13,7 +13,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="15dp"
         android:textAlignment="textStart"
-        android:textColor="#000000"
+        android:textColor="#2196F3"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="15dp"
         android:textAlignment="textStart"
-        android:textColor="#000000"
+        android:textColor="#03A9F4"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,33 +99,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail"
         app:layout_constraintVertical_bias="0.022" />
-
-    <ImageView
-        android:id="@+id/btnCopyEmail"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCopyPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName"
-        app:layout_constraintVertical_bias="0.409"
-        app:srcCompat="?attr/actionModeCopyDrawable"
-        app:tint="#000000" />
-
-    <ImageView
-        android:id="@+id/btnCopyPassword"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        app:layout_constraintVertical_bias="0.02"
-        app:srcCompat="?attr/actionModeCopyDrawable"
-        app:tint="#000000" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

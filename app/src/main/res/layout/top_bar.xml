@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/topBar"
-    android:background="@color/design_default_color_primary_dark"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    app:title="@string/app_name"
-    app:logo="@drawable/ic_menu"
-    app:titleMarginStart="40dp">
+    android:orientation="vertical"
 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-</androidx.appcompat.widget.Toolbar>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary_dark"
+        app:title="@string/app_name"
+        app:titleTextColor="#FFFFFF"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ToolBarStyle"
+        android:theme="?attr/actionBarTheme" />
+
+</LinearLayout>

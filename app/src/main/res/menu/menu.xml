@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:andoid="http://schemas.android.com/tools">
 
     <item
-        android:title="@string/user"
-        android:icon="@drawable/ic_user"
-        android:id="@+id/user"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always|withText"
+        android:icon="@drawable/ic_more"
+        android:title="">
 
-    <item
-        android:id="@+id/id_logout"
-        android:title="Logout"
-        />
+        <menu>
+            <item
+                android:id="@+id/password_generator"
+                andoid:title="Password Generator"
+                app:showAsAction="always|withText"
+                android:icon="@drawable/ic_email"
+                android:actionMenuTextColor="@color/black"
+                android:title="Password Generator"/>
+            <item
+                android:id="@+id/insert_manually"
+                andoid:title="Insert Manually"
+                app:showAsAction="always|withText"
+                android:actionMenuTextColor="@color/black"
+                android:title="Insert Manually"/>
+            <item
+                android:id="@+id/password_list"
+                andoid:title="Password List"
+                app:showAsAction="always|withText"
+                android:actionMenuTextColor="@color/black"
+                android:title="Password List"/>
+            <item
+                android:id="@+id/logout"
+                andoid:title="Logout"
+                app:showAsAction="ifRoom"
+                android:actionMenuTextColor="@color/black"
+                android:title="Logout"/>
+            <item
+                android:id="@+id/exit"
+                andoid:title="Exit"
+                app:showAsAction="never"
+                android:actionMenuTextColor="@color/black"
+                android:title="Exit" />
+        </menu>
 
-    <item
-        android:id="@+id/id_exit"
-        android:title="Exit"
-    />
+    </item>
 
 </menu>

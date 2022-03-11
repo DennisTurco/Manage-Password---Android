@@ -3,19 +3,15 @@ package com.example.randompasswordgenerator;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,6 +32,12 @@ public class Login extends AppCompatActivity{
 
         InterfaceImplementation inter = new InterfaceImplementation();
 
+        //controllo se e' il primo accesso da parte dell'utente
+        File folder = new File(Environment.getExternalStorageDirectory(), "/RandomPasswordGenerator");
+        if (!folder.exists()){
+            inter.RedirectActivity(Login.this, Register.class);
+        }
+
         //----------------------------- Button Login ------------------------------
         username = findViewById(R.id.textName);
         password = findViewById(R.id.textPassword);
@@ -44,7 +46,6 @@ public class Login extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Log.d("Success", "Button 'Login'");
 
                 //TODO: controllo errori immissione campi
                 //controllo errori input
@@ -97,7 +98,6 @@ public class Login extends AppCompatActivity{
             public void onClick(View v) {
                 inter.RedirectActivity(Login.this, Register.class); //chiamata alla funzione campio pagina
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                Log.d("Success", "change activity to 'Register' activity");
             }
         });
     }

@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:actionMenuTextColor">@color/purple_700</item>
     </style>
+
+    <!-- for toolbar style -->
+    <style name="ThemeOverlay.PopupTheme" parent="Theme.AppCompat.Light">
+        <item name="android:actionMenuTextColor">@color/purple_700</item>
+    </style>
+
 </resources>

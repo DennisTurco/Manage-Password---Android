@@ -1,11 +1,9 @@
 package com.example.randompasswordgenerator;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +17,7 @@ import java.util.ArrayList;
 
 public class Activity_PasswordList extends AppCompatActivity{
 
-    private ImageButton buttonBack;
-    private static InterfaceImplementation inter = new InterfaceImplementation();
+    private static final InterfaceImplementation inter = new InterfaceImplementation();
     private static String User;
     private static ArrayList<DataList> dataList;
 
@@ -28,8 +25,9 @@ public class Activity_PasswordList extends AppCompatActivity{
     private static ListView listView;
     private static ArrayList<DataList> info;
     private static ListViewAdapter dataListAdapter;
-    private static Context context;
-    private static File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataList.txt");
+    private static final File file = new File(Environment.getExternalStorageDirectory(), "./RandomPasswordGenerator/DataList.txt");
+
+    //TODO:FIXHERE -> togliere le list view e sostituirle con i recyclerView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,7 @@ public class Activity_PasswordList extends AppCompatActivity{
         dataList = new ArrayList<>();
 
         Type type = new TypeToken<ArrayList<DataList>>() {}.getType();
-        if(text.toString().length() != 0 && text != null){
+        if(text.toString().length() != 0){
             dataList = gson.fromJson(text.toString(), type);
         }
 
@@ -103,8 +101,8 @@ public class Activity_PasswordList extends AppCompatActivity{
         listView.setAdapter(dataListAdapter);
 
         //TODO: FIXHERE -> messaggio per il feedback
-        /*ClipData clip = ClipData.newPlainText("simple text", editTextPassword.getText());
-        Snackbar snackbar = Snackbar.make(view, "password saved!", Snackbar.LENGTH_SHORT)
+        /*ClipData.newPlainText("simple text", "ciao");
+        Snackbar snackbar = Snackbar.make(view, "item removed!", Snackbar.LENGTH_SHORT)
                 .setAction("Dimiss", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

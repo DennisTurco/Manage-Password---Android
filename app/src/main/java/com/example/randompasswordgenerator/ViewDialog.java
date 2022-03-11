@@ -9,9 +9,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatDialogFragment;
+
 import com.google.android.material.snackbar.Snackbar;
 
 public class ViewDialog extends AppCompatDialogFragment {
@@ -22,10 +23,6 @@ public class ViewDialog extends AppCompatDialogFragment {
     private String Name;
     private String Email;
     private String Password;
-    private ImageView btnCopyEmail;
-    private ImageView btnCopyPassword;
-
-    //TODO:FIXHERE -> problema di visualizzazzione di email, password o nomi troppo lunghi, trovare soluzione
 
     public ViewDialog() {}
 
@@ -50,25 +47,9 @@ public class ViewDialog extends AppCompatDialogFragment {
         txtEmail.setText(Email);
         txtPassword.setText(Password);
 
-        btnCopyEmail = view.findViewById(R.id.btnCopyEmail);
-        btnCopyPassword = view.findViewById(R.id.btnCopyPassword);
-
         //TODO: aggiungere la possibilità di copiare il campo mantenendo premuto
 
         //----------------------------- Button Copy Email------------------------------
-        btnCopyEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //copy
-                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("TextView", txtEmail.getText().toString());
-                clipboard.setPrimaryClip(clip);
-
-                //messaggio per il feedback
-                Snackbar snackbar = Snackbar.make(v, "email copied!", Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            }
-        });
         txtEmail.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -87,19 +68,6 @@ public class ViewDialog extends AppCompatDialogFragment {
 
 
         //----------------------------- Button Copy Password------------------------------
-        btnCopyPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //copy
-                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("TextView", txtPassword.getText().toString());
-                clipboard.setPrimaryClip(clip);
-
-                //messaggio per il feedback
-                Snackbar snackbar = Snackbar.make(v, "password copied!", Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            }
-        });
         txtPassword.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
